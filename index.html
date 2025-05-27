@@ -58,6 +58,9 @@
             --font-size-large: 1.3rem; 
             --font-size-normal: 1.15rem;  
             --font-size-small: 1.05rem; 
+
+            --progress-bar-track-bg: #e9ecef;
+            --progress-bar-fill-bg: var(--primary-color);
         }
 
         body {
@@ -190,7 +193,7 @@
 
 
         .problem-area {
-            margin-bottom: 2rem; 
+            margin-bottom: 1rem; /* Adjusted margin for progress bar */
             padding: 1.5rem; 
             border-radius: 10px; 
             background-color: var(--input-bg-color); 
@@ -203,6 +206,23 @@
             background-color: #fff7f2; 
         }
 
+        #progressBarContainer {
+            width: 100%;
+            background-color: var(--progress-bar-track-bg);
+            border-radius: 9999px; /* full round */
+            height: 0.75rem; /* 12px */
+            margin-bottom: 1rem;
+            overflow: hidden; /* Ensure inner bar respects rounding */
+        }
+        #progressBar {
+            background-color: var(--progress-bar-fill-bg);
+            height: 100%;
+            border-radius: 9999px;
+            width: 0%;
+            transition: width 0.3s ease-in-out;
+        }
+
+
         .problem-static {
             font-size: 2.4rem; 
             color: var(--problem-static-text-color);
@@ -211,6 +231,7 @@
             font-weight: 500;
             letter-spacing: 0.05em;
             line-height: 1.4;
+            transition: color 0.3s ease-in-out; 
         }
 
         .problem-dynamic {
@@ -464,7 +485,7 @@
             --modal-header-bg-color: var(--primary-color); 
             --modal-header-text-color: #1A202C; 
             
-            --problem-static-text-color: #cbd5e0; 
+            --problem-static-text-color: #e2e8f0; 
             --problem-dynamic-bg-color: #2d3748; 
             --char-span-border-color: #718096;
             --next-char-bg-color: #4A5568; 
@@ -482,6 +503,15 @@
             --confirm-ok-hover-bg: #48BB78; 
             --confirm-cancel-bg: #718096; 
             --confirm-cancel-hover-bg: #A0AEC0; 
+
+            --progress-bar-track-bg: #718096; /* Darker track for dark mode */
+            --progress-bar-fill-bg: var(--secondary-accent-color); /* Use accent for fill */
+        }
+        .problem-static.prompt-text-game-active {
+            transition: color 0.3s ease-in-out;
+        }
+        body.dark-theme .problem-static.prompt-text-game-active {
+            color: var(--text-muted-color); 
         }
 
 
@@ -500,6 +530,7 @@
             --modal-content-bg-color: #fffafa;
             --modal-header-bg-color: var(--primary-color); 
             --list-item-hover-bg: #ffeef2;
+            --progress-bar-fill-bg: var(--accent-color);
         }
         body.mizuiro-theme {
             --background-color: #e0f7fa; 
@@ -516,6 +547,7 @@
             --modal-content-bg-color: #f0ffff; 
             --modal-header-bg-color: var(--primary-color); 
             --list-item-hover-bg: #e6faff;
+            --progress-bar-fill-bg: var(--accent-color);
         }
         body.matcha-theme {
             --background-color: #f0f4f0; 
@@ -532,6 +564,7 @@
             --modal-content-bg-color: #f5f5f5;
             --modal-header-bg-color: var(--primary-color); 
             --list-item-hover-bg: #eaf0ea;
+            --progress-bar-fill-bg: var(--accent-color);
         }
         
         /* Toast Notification Styles */
@@ -588,6 +621,9 @@
         </div>
         
         <div class="problem-area">
+            <div id="progressBarContainer" style="display: none;">
+                <div id="progressBar"></div>
+            </div>
             <div id="problemTextStatic" class="problem-static">準備完了。スペースキーで開始！</div>
             <div id="problemTextDynamic" class="problem-dynamic"></div>
         </div>
@@ -806,6 +842,7 @@
     // DOM Elements
     let startBtn, resetBtn, wordRegistrationBtn, rankingBtn, totalStatsBtn, settingsBtn;
     let problemTextStaticElement, problemTextDynamicElement, inputField, countdownDisplay, currentKpmDisplay;
+    let progressBarContainer, progressBar;
     let settingsModal, wordRegistrationModal, resultsModal, rankingModal, totalStatsModal, customConfirmModal, renameListModal;
     let confirmMessageText, confirmOkBtn, confirmCancelBtn;
     let renameListIdInput, editListNameInput, saveRenameListBtn, cancelRenameListBtn;
@@ -836,6 +873,7 @@
     let problemToType = ""; 
     let practiceSessionWordPool = []; 
     let practiceSessionWordPoolIndex = 0;
+    let progressCompletedProblems = 0; // For progress bar
 
 
     let gameActive = false;
@@ -1020,10 +1058,28 @@
                     currentWords.push(...list.words);
                 }
             });
+             if (currentMode === 'normal') { 
+                practiceSessionWordPool = []; 
+                practiceSessionWordPoolIndex = 0;
+            }
         }
         
         if (!gameActive) {
             loadInitialProblemDisplay();
+        }
+    }
+
+    // --- Progress Bar ---
+    function updateProgressBar(current, total) {
+        if (progressBar && progressBarContainer) {
+            if (total > 0) {
+                const percentage = (current / total) * 100;
+                progressBar.style.width = `${percentage}%`;
+                progressBarContainer.style.display = 'block';
+            } else {
+                progressBar.style.width = '0%';
+                progressBarContainer.style.display = 'none';
+            }
         }
     }
 
@@ -1044,6 +1100,8 @@
         currentKpmDisplay = document.getElementById('currentKpmDisplay');
         mainContainer = document.querySelector('.container');
         problemAreaElement = document.querySelector('.problem-area'); 
+        progressBarContainer = document.getElementById('progressBarContainer');
+        progressBar = document.getElementById('progressBar');
 
         practiceWordListsContainerModal = document.getElementById('practiceWordListsContainerModal');
         selectAllListsBtnModal = document.getElementById('selectAllListsBtnModal');
@@ -1168,6 +1226,9 @@
         modeSelect.addEventListener('change', (e) => { 
             currentMode = e.target.value;
             timeLimitOptions.style.display = currentMode === 'timeLimit' ? 'block' : 'none';
+            if (progressBarContainer) { // Toggle progress bar visibility
+                progressBarContainer.style.display = currentMode === 'normal' ? 'block' : 'none';
+            }
             saveSettings(); 
             if (!gameActive) loadInitialProblemDisplay();
         });
@@ -1274,6 +1335,9 @@
         modeSelect.value = currentMode;
         timeLimitSelect.value = currentTimeLimit;
         timeLimitOptions.style.display = currentMode === 'timeLimit' ? 'block' : 'none';
+        if (progressBarContainer) {
+             progressBarContainer.style.display = currentMode === 'normal' ? 'block' : 'none';
+        }
         applyTheme(currentTheme); 
         soundToggle.checked = soundEnabled;
     }
@@ -1644,13 +1708,13 @@
 
     // --- Game Core Logic ---
     let problemSet = []; 
-    // let practiceSessionWordPool = []; // Already declared in Game State
-    // let practiceSessionWordPoolIndex = 0; // Already declared in Game State
-
+    
     function prepareNormalModeProblems() {
         if (currentWords.length === 0) {
             problemSet = [];
             problemSetIndex = 0;
+            progressCompletedProblems = 0;
+            updateProgressBar(0,0);
             return;
         }
 
@@ -1661,8 +1725,12 @@
         }
         
         problemSet = [];
-        for (let i = 0; i < 50; i++) {
+        const problemsToGenerate = Math.min(50, practiceSessionWordPool.length - practiceSessionWordPoolIndex + problemSet.length);
+
+        for (let i = 0; i < problemsToGenerate && problemSet.length < 50; i++) {
             if (practiceSessionWordPoolIndex >= practiceSessionWordPool.length) {
+                 // This should ideally not be hit if logic above is correct for replenishing,
+                 // but as a safeguard if currentWords is very small and 50 problems are desired
                 if (currentWords.length > 0) { 
                     practiceSessionWordPool = [...currentWords];
                     shuffleArray(practiceSessionWordPool);
@@ -1676,6 +1744,8 @@
             problemSet.push(practiceSessionWordPool[practiceSessionWordPoolIndex++]);
         }
         problemSetIndex = 0; 
+        progressCompletedProblems = 0;
+        updateProgressBar(progressCompletedProblems, problemSet.length);
     }
     
     function shuffleArray(array) {
@@ -1769,6 +1839,13 @@
     }
     
     function loadInitialProblemDisplay() {
+        if (currentMode === 'normal' && progressBarContainer) {
+            progressBarContainer.style.display = 'block';
+            updateProgressBar(0, 50); // Assume 50 problems for initial display
+        } else if (progressBarContainer) {
+            progressBarContainer.style.display = 'none';
+        }
+
         if (currentWords.length === 0) {
             if (problemTextStaticElement) problemTextStaticElement.textContent = "練習する単語リストを選択・登録してください";
             if (problemTextDynamicElement) problemTextDynamicElement.innerHTML = "";
@@ -1786,9 +1863,11 @@
                 if (problemTextStaticElement) problemTextStaticElement.textContent = "選択されたリストに練習可能な単語がありません (通常モード)。";
                 if (startBtn) startBtn.disabled = true;
                 currentProblem = null; problemToType = "";
+                updateProgressBar(0,0);
                 return false;
             }
             currentProblem = problemSet[problemSetIndex]; 
+            updateProgressBar(progressCompletedProblems, problemSet.length);
         } else { 
             currentProblem = getRandomProblemForTimeLimit();
         }
@@ -1820,27 +1899,32 @@
         if (currentWords.length === 0) { 
             if (problemTextStaticElement) problemTextStaticElement.textContent = "練習する単語リストを選択・登録してください";
             if (startBtn) startBtn.disabled = true;
+            if (progressBarContainer) progressBarContainer.style.display = 'none';
             showToast("練習する単語がありません。リストを選択するか、単語を登録してください。", "error");
             return;
         }
         
-        // problemSetIndex = 0; // This is reset inside prepareNormalModeProblems
-
+        progressCompletedProblems = 0; // Reset for new game
         if (currentMode === 'normal') {
             prepareNormalModeProblems(); 
              if (problemSet.length === 0) { 
                  if (problemTextStaticElement) problemTextStaticElement.textContent = "練習可能な単語がありません (通常モード)。";
                  if (startBtn) startBtn.disabled = true;
+                 if (progressBarContainer) progressBarContainer.style.display = 'none';
                  return;
             }
             currentProblem = getNextProblemForNormalMode(); 
-        } else { // timeLimit
+            if (progressBarContainer) progressBarContainer.style.display = 'block';
+            updateProgressBar(progressCompletedProblems, problemSet.length);
+        } else { 
             currentProblem = getRandomProblemForTimeLimit();
+            if (progressBarContainer) progressBarContainer.style.display = 'none';
         }
         
         if (!currentProblem) { 
             if (problemTextStaticElement) problemTextStaticElement.textContent = "練習可能な単語がありません。";
             if (startBtn) startBtn.disabled = true;
+            if (progressBarContainer) progressBarContainer.style.display = 'none';
             return;
         }
 
@@ -1855,6 +1939,9 @@
         mistypedKeysStats = {};
         wordCompleted = false;
 
+        if (problemTextStaticElement) { 
+            problemTextStaticElement.classList.add('prompt-text-game-active');
+        }
         if (problemAreaElement) problemAreaElement.classList.add('game-in-progress');
         if (startBtn) startBtn.disabled = true;
         if (resetBtn) resetBtn.disabled = false; 
@@ -1898,11 +1985,15 @@
         incorrectStrokes = 0;
         totalTypedInGame = 0;
         problemSetIndex = 0; 
-        if (currentMode === 'normal') {
-            practiceSessionWordPool = []; 
-            practiceSessionWordPoolIndex = 0;
-        }
+        // Do NOT reset practiceSessionWordPool or practiceSessionWordPoolIndex here for Normal mode
+        // to maintain progress across resets within a session.
+        // It's reset when practice list selections change or pool is exhausted.
+        progressCompletedProblems = 0;
+
         
+        if (problemTextStaticElement) { 
+            problemTextStaticElement.classList.remove('prompt-text-game-active');
+        }
         if (inputField) {
             inputField.value = '';
             inputField.blur(); 
@@ -1911,7 +2002,7 @@
         if (resetBtn) resetBtn.disabled = true; 
         if (problemAreaElement) problemAreaElement.classList.remove('game-in-progress');
         
-        loadInitialProblemDisplay(); 
+        loadInitialProblemDisplay(); // This will also update progress bar for normal mode
     }
     
     async function endGame() { 
@@ -1919,6 +2010,14 @@
         gameActive = false;
         clearInterval(timerInterval);
         playSound('gameEnd');
+
+        if (problemTextStaticElement) { 
+            problemTextStaticElement.classList.remove('prompt-text-game-active');
+        }
+        if (currentMode === 'normal' && problemSet.length > 0) {
+            updateProgressBar(problemSet.length, problemSet.length); // Show 100% on game end
+        }
+
 
         const elapsedTime = (new Date() - gameStartTime) / 1000; 
         const kpm = elapsedTime > 0 ? Math.round((correctStrokes / elapsedTime) * 60) : 0;
@@ -2022,13 +2121,15 @@
             }
         } else { // Normal Mode
             currentProblem = getNextProblemForNormalMode(); 
-            
             if (currentProblem) {
+                progressCompletedProblems = problemSetIndex -1; // problemSetIndex is already incremented
+                updateProgressBar(progressCompletedProblems, problemSet.length);
                 problemToType = getProblemTextToType();
                 currentProblemCharIndex = 0;
                 renderProblemStatic();
                 renderProblemDynamic();
             } else { 
+                updateProgressBar(problemSet.length, problemSet.length); // Ensure 100% at the very end
                 endGame(); 
             }
         }
