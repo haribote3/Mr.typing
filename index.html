@@ -47,17 +47,17 @@
             --confirm-cancel-bg: #AAAAAA; 
             --confirm-cancel-hover-bg: #888888; 
 
-            --base-font-size: 20px; /* Base font size further increased */
+            --base-font-size: 20px; 
             --font-family-sans-serif: 'Noto Sans JP', sans-serif;
             --font-family-monospace: 'Roboto Mono', 'Courier New', Courier, monospace;
 
-            --font-size-h1: 3.7rem; /* Adjusted H1 */
-            --font-size-h2: 2.1rem; /* Modal headers */
-            --font-size-h3: 1.6rem; /* Section headers in modals */
-            --font-size-button: 1.3rem; /* Specific for main control buttons */
+            --font-size-h1: 3.7rem;
+            --font-size-h2: 2.1rem; 
+            --font-size-h3: 1.6rem; 
+            --font-size-button: 1.3rem; 
             --font-size-large: 1.3rem; 
             --font-size-normal: 1.15rem;  
-            --font-size-small: 1.05rem; /* Adjusted small font size */
+            --font-size-small: 1.05rem; 
         }
 
         body {
@@ -81,7 +81,7 @@
             border-radius: 16px; 
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
             width: 100%;
-            max-width: 600px; /* Changed from 800px */
+            max-width: 600px; 
             text-align: center;
         }
 
@@ -443,6 +443,48 @@
         .toggle-switch input:checked + .slider { background-color: var(--primary-color); }
         .toggle-switch input:checked + .slider::before { transform: translateX(24px); }
 
+        /* Light Theme (Default) */
+        body { /* Default theme variables already in :root */ }
+
+        /* Dark Theme */
+        body.dark-theme {
+            --background-color: #2d3748; 
+            --text-color: #e2e8f0;       
+            --text-muted-color: #a0aec0; 
+            --primary-color: #F687B3;   
+            --accent-color: #ED64A6;     
+            --secondary-accent-color: #68D391; 
+            
+            --input-bg-color: #4a5568;   
+            --input-border-color: #718096; 
+            --button-bg-color: var(--primary-color);
+            --button-hover-bg-color: #ED64A6;
+            
+            --modal-content-bg-color: #4a5568; 
+            --modal-header-bg-color: var(--primary-color); 
+            --modal-header-text-color: #1A202C; 
+            
+            --problem-static-text-color: #cbd5e0; 
+            --problem-dynamic-bg-color: #2d3748; 
+            --char-span-border-color: #718096;
+            --next-char-bg-color: #4A5568; 
+            --correct-char-color: #68D391; 
+            --incorrect-char-color: #FC8181; 
+            --incorrect-char-bg-color: #742A2A; 
+            
+            --list-item-hover-bg: #718096; 
+            --toast-success-bg: var(--secondary-accent-color); 
+            --toast-error-bg: #FC8181;   
+            --toast-info-bg: #63B3ED;    
+            --toast-text-color: #1A202C; 
+
+            --confirm-ok-bg: var(--secondary-accent-color); 
+            --confirm-ok-hover-bg: #48BB78; 
+            --confirm-cancel-bg: #718096; 
+            --confirm-cancel-hover-bg: #A0AEC0; 
+        }
+
+
         body.sakura-theme {
             --background-color: #fff0f5; 
             --text-color: #583c47; 
@@ -615,7 +657,7 @@
                         <label for="newListNameInput" class="block mb-1 text-sm font-medium">新しいリスト名</label>
                         <div class="flex items-center"> 
                             <input type="text" id="newListNameInput" placeholder="例: 基本単語" class="flex-grow" style="padding: 0.8rem; font-size: 1.1rem;"> 
-                            <button id="createWordListBtn" class="ml-2 bg-green-500 hover:bg-green-600 px-4 py-3 text-xl" style="transform: translateY(calc(var(--base-font-size) * 1.1 * 0.125 * -1)); line-height: 1;"><i class="fas fa-plus"></i></button> 
+                            <button id="createWordListBtn" class="ml-2 bg-green-500 hover:bg-green-600 px-4 py-3 text-xl" style="line-height: 1; transform: translateY(-2px);"><i class="fas fa-plus"></i></button> 
                         </div>
                     </div>
                     <div id="manageWordListsContainer" class="max-h-48 overflow-y-auto border p-2 rounded mb-3">
@@ -661,8 +703,7 @@
              <hr class="my-4">
              <h3 class="text-xl font-semibold mb-3">登録済み単語の確認・修正</h3>
              <div class="flex justify-between items-center mb-2">
-                <label for="viewRegisteredWordsListSelect" class="text-sm font-medium mr-2">リスト選択</label>
-                <select id="viewRegisteredWordsListSelect" class="text-sm py-1 flex-grow"></select>
+                <select id="viewRegisteredWordsListSelect" class="text-sm py-1 flex-grow mr-2"></select>
                 <button id="correctListDataBtnModal" class="ml-2 text-sm px-2 py-1 bg-orange-500 hover:bg-orange-600">選択リストの表示/タイプ文入替</button>
             </div>
             <div id="registeredWordsList" class="max-h-60 overflow-y-auto border p-2 rounded">
@@ -793,6 +834,9 @@
     let currentProblem = null;
     let currentProblemCharIndex = 0;
     let problemToType = ""; 
+    let practiceSessionWordPool = []; 
+    let practiceSessionWordPoolIndex = 0;
+
 
     let gameActive = false;
     let gameStartTime;
@@ -1600,7 +1644,8 @@
 
     // --- Game Core Logic ---
     let problemSet = []; 
-    let problemSetIndex = 0;
+    // let practiceSessionWordPool = []; // Already declared in Game State
+    // let practiceSessionWordPoolIndex = 0; // Already declared in Game State
 
     function prepareNormalModeProblems() {
         if (currentWords.length === 0) {
@@ -1608,24 +1653,27 @@
             problemSetIndex = 0;
             return;
         }
-        problemSet = [];
-        let availableWords = [...currentWords]; 
-        shuffleArray(availableWords); 
 
+        if (practiceSessionWordPool.length === 0 || practiceSessionWordPoolIndex >= practiceSessionWordPool.length) {
+            practiceSessionWordPool = [...currentWords];
+            shuffleArray(practiceSessionWordPool);
+            practiceSessionWordPoolIndex = 0;
+        }
+        
+        problemSet = [];
         for (let i = 0; i < 50; i++) {
-            if (availableWords.length === 0) { 
-                if (currentWords.length > 0) {
-                     availableWords = [...currentWords];
-                     shuffleArray(availableWords);
-                } else { 
+            if (practiceSessionWordPoolIndex >= practiceSessionWordPool.length) {
+                if (currentWords.length > 0) { 
+                    practiceSessionWordPool = [...currentWords];
+                    shuffleArray(practiceSessionWordPool);
+                    practiceSessionWordPoolIndex = 0;
+                } else {
                     break; 
                 }
             }
-            if (availableWords.length > 0) {
-                problemSet.push(availableWords.pop());
-            } else {
-                break; 
-            }
+            if (practiceSessionWordPool.length === 0) break;
+
+            problemSet.push(practiceSessionWordPool[practiceSessionWordPoolIndex++]);
         }
         problemSetIndex = 0; 
     }
@@ -1776,11 +1824,11 @@
             return;
         }
         
-        problemSetIndex = 0; 
+        // problemSetIndex = 0; // This is reset inside prepareNormalModeProblems
 
         if (currentMode === 'normal') {
             prepareNormalModeProblems(); 
-            if (problemSet.length === 0) { 
+             if (problemSet.length === 0) { 
                  if (problemTextStaticElement) problemTextStaticElement.textContent = "練習可能な単語がありません (通常モード)。";
                  if (startBtn) startBtn.disabled = true;
                  return;
@@ -1850,8 +1898,10 @@
         incorrectStrokes = 0;
         totalTypedInGame = 0;
         problemSetIndex = 0; 
-        problemSet = [];    
-        wordCompleted = false;
+        if (currentMode === 'normal') {
+            practiceSessionWordPool = []; 
+            practiceSessionWordPoolIndex = 0;
+        }
         
         if (inputField) {
             inputField.value = '';
@@ -2094,10 +2144,10 @@
                 totalMistypedKeysListElement.appendChild(el);
             });
         }
-        if(totalPlaysStat) totalPlaysStat.textContent = currentTotalPlayStats.plays;
-        if(totalPlayTimeStat) totalPlayTimeStat.textContent = `${currentTotalPlayStats.playTime.toFixed(0)}秒`;
-        if(totalTypedCharactersStat) totalTypedCharactersStat.textContent = currentTotalPlayStats.typedChars;
-        if(totalOverallMistakesStat) totalOverallMistakesStat.textContent = currentTotalPlayStats.mistypedKeysOverall;
+        if(totalPlaysStat) totalPlaysStat.textContent = currentTotalPlayStats.plays.toLocaleString();
+        if(totalPlayTimeStat) totalPlayTimeStat.textContent = `${currentTotalPlayStats.playTime.toLocaleString(undefined, {maximumFractionDigits: 0})}秒`;
+        if(totalTypedCharactersStat) totalTypedCharactersStat.textContent = currentTotalPlayStats.typedChars.toLocaleString();
+        if(totalOverallMistakesStat) totalOverallMistakesStat.textContent = currentTotalPlayStats.mistypedKeysOverall.toLocaleString();
         if(avgKpmStat) avgKpmStat.textContent = currentTotalPlayStats.plays > 0 ? (currentTotalPlayStats.kpmSum / currentTotalPlayStats.plays).toFixed(0) : 0;
         if(avgAccuracyStat) avgAccuracyStat.textContent = currentTotalPlayStats.plays > 0 ? `${(currentTotalPlayStats.accuracySum / currentTotalPlayStats.plays).toFixed(1)}%` : `0%`;
 
