@@ -36,7 +36,7 @@
             --incorrect-char-color: #C62828; 
             --incorrect-char-bg-color: #FFCDD2; 
             
-            --list-item-hover-bg: #f0f0f0; 
+            --list-item-hover-bg: #f5f5f5; 
             --toast-success-bg: var(--secondary-accent-color); 
             --toast-error-bg: #EF5350;   
             --toast-info-bg: #42A5F5;    
@@ -58,9 +58,6 @@
             --font-size-large: 1.3rem; 
             --font-size-normal: 1.15rem;  
             --font-size-small: 1.05rem; 
-
-            --progress-bar-track-bg: #e9ecef;
-            --progress-bar-fill-bg: var(--primary-color);
         }
 
         body {
@@ -151,9 +148,9 @@
         .practice-list-selection-area { 
             margin-top: 1rem; 
             padding: 1rem;
-            border: 1px solid var(--input-border-color);
+            border: 1px solid #e8e8e8; 
             border-radius: 10px; 
-            background-color: #fdfdfd; /* Default light mode background */
+            background-color: #fdfdfd; 
         }
         .practice-list-selection-area h3 {
             font-size: 1.4rem; 
@@ -171,7 +168,6 @@
             border: 1px solid var(--input-border-color);
             padding: 0.75rem; 
             border-radius: 8px; 
-            background-color: var(--input-bg-color); /* Use input-bg for consistency */
         }
         #practiceWordListsContainerModal label {
             display: flex;
@@ -179,10 +175,9 @@
             padding: 0.5rem 0.8rem; 
             border-radius: 8px; 
             cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
+            transition: background-color 0.2s;
             text-align: left;
             font-size: 1.15rem; 
-            color: var(--text-color); /* Ensure text color respects theme */
         }
         #practiceWordListsContainerModal label:hover {
             background-color: var(--accent-color);
@@ -195,33 +190,39 @@
 
 
         .problem-area {
-            margin-bottom: 1rem; 
+            margin-bottom: 2rem; 
             padding: 1.5rem; 
             border-radius: 10px; 
             background-color: var(--input-bg-color); 
             box-shadow: inset 0 3px 6px rgba(0,0,0,0.06); 
             border: 2px solid transparent; 
             transition: background-color 0.3s, border-color 0.3s;
+            cursor: text; 
         }
         .problem-area.game-in-progress {
             border-color: var(--primary-color);
             background-color: #fff7f2; 
         }
-
-        #progressBarContainer {
+        .progress-bar-container {
             width: 100%;
-            background-color: var(--progress-bar-track-bg);
-            border-radius: 9999px; 
-            height: 0.75rem; 
-            margin-bottom: 1rem;
+            background-color: var(--input-border-color); 
+            border-radius: 6px;
+            height: 12px; 
+            margin-bottom: 0.75rem; 
             overflow: hidden; 
         }
-        #progressBar {
-            background-color: var(--progress-bar-fill-bg);
+        #gameProgressBar {
+            width: 0%; 
             height: 100%;
-            border-radius: 9999px;
-            width: 0%;
-            transition: width 0.3s ease-in-out;
+            background-color: var(--secondary-accent-color); 
+            border-radius: 6px;
+            transition: width 0.25s ease-out; 
+        }
+        body.dark-theme .progress-bar-container {
+            background-color: #718096; 
+        }
+        body.dark-theme #gameProgressBar {
+            background-color: var(--primary-color); 
         }
 
 
@@ -496,8 +497,6 @@
             --incorrect-char-bg-color: #742A2A; 
             
             --list-item-hover-bg: #718096; 
-            --list-item-hover-text-color-dark: #ffffff; /* Added for dark theme list hover */
-
             --toast-success-bg: var(--secondary-accent-color); 
             --toast-error-bg: #FC8181;   
             --toast-info-bg: #63B3ED;    
@@ -507,31 +506,12 @@
             --confirm-ok-hover-bg: #48BB78; 
             --confirm-cancel-bg: #718096; 
             --confirm-cancel-hover-bg: #A0AEC0; 
-
-            --progress-bar-track-bg: #718096; 
-            --progress-bar-fill-bg: var(--secondary-accent-color); 
         }
         .problem-static.prompt-text-game-active {
             transition: color 0.3s ease-in-out;
         }
         body.dark-theme .problem-static.prompt-text-game-active {
             color: var(--text-muted-color); 
-        }
-        body.dark-theme #practiceWordListsContainerModal label {
-            color: var(--text-color); /* Ensure list items are readable in dark mode */
-            background-color: transparent; /* Make sure container bg shows through */
-        }
-        body.dark-theme #practiceWordListsContainerModal label:hover {
-            background-color: var(--accent-color); /* Dark theme accent for hover */
-            color: var(--modal-header-text-color); /* Ensure contrast on hover */
-        }
-        body.dark-theme .practice-list-selection-area { 
-            background-color: #4a5568; /* Darker background for section in dark mode */
-            border-color: #718096;
-        }
-        body.dark-theme #practiceWordListsContainerModal {
-             border-color: #718096;
-             background-color: #2d3748; /* Match overall dark bg */
         }
 
 
@@ -550,7 +530,6 @@
             --modal-content-bg-color: #fffafa;
             --modal-header-bg-color: var(--primary-color); 
             --list-item-hover-bg: #ffeef2;
-            --progress-bar-fill-bg: var(--accent-color);
         }
         body.mizuiro-theme {
             --background-color: #e0f7fa; 
@@ -567,7 +546,6 @@
             --modal-content-bg-color: #f0ffff; 
             --modal-header-bg-color: var(--primary-color); 
             --list-item-hover-bg: #e6faff;
-            --progress-bar-fill-bg: var(--accent-color);
         }
         body.matcha-theme {
             --background-color: #f0f4f0; 
@@ -584,7 +562,6 @@
             --modal-content-bg-color: #f5f5f5;
             --modal-header-bg-color: var(--primary-color); 
             --list-item-hover-bg: #eaf0ea;
-            --progress-bar-fill-bg: var(--accent-color);
         }
         
         /* Toast Notification Styles */
@@ -641,10 +618,10 @@
         </div>
         
         <div class="problem-area">
-            <div id="progressBarContainer" style="display: none;">
-                <div id="progressBar"></div>
+            <div class="progress-bar-container mb-2">
+                <div id="gameProgressBar" class="progress-bar"></div>
             </div>
-            <div id="problemTextStatic" class="problem-static">準備完了。スペースキーで開始！</div>
+            <div id="problemTextStatic" class="problem-static">準備完了。スタートボタンまたはスペースキーで問題表示！</div>
             <div id="problemTextDynamic" class="problem-dynamic"></div>
         </div>
 
@@ -862,7 +839,7 @@
     // DOM Elements
     let startBtn, resetBtn, wordRegistrationBtn, rankingBtn, totalStatsBtn, settingsBtn;
     let problemTextStaticElement, problemTextDynamicElement, inputField, countdownDisplay, currentKpmDisplay;
-    let progressBarContainer, progressBar;
+    let gameProgressBar; // Added for progress bar
     let settingsModal, wordRegistrationModal, resultsModal, rankingModal, totalStatsModal, customConfirmModal, renameListModal;
     let confirmMessageText, confirmOkBtn, confirmCancelBtn;
     let renameListIdInput, editListNameInput, saveRenameListBtn, cancelRenameListBtn;
@@ -893,10 +870,10 @@
     let problemToType = ""; 
     let practiceSessionWordPool = []; 
     let practiceSessionWordPoolIndex = 0;
-    let progressCompletedProblems = 0; 
 
 
     let gameActive = false;
+    let gamePendingStart = false; 
     let gameStartTime;
     let timerInterval;
     let currentMode = 'normal'; 
@@ -1084,23 +1061,22 @@
             }
         }
         
-        if (!gameActive) {
+        if (!gameActive && !gamePendingStart) { 
             loadInitialProblemDisplay();
         }
     }
 
-    // --- Progress Bar ---
-    function updateProgressBar(current, total) {
-        if (progressBar && progressBarContainer) {
-            if (total > 0 && currentMode === 'normal') {
-                const percentage = (current / total) * 100;
-                progressBar.style.width = `${Math.min(100, Math.max(0, percentage))}%`; // Clamp between 0 and 100
-                progressBarContainer.style.display = 'block';
-            } else {
-                progressBar.style.width = '0%';
-                progressBarContainer.style.display = 'none';
-            }
+    function updateProgressBar() {
+        if (!gameProgressBar) return;
+        let progress = 0;
+        if (gameActive && currentMode === 'normal' && problemSet && problemSet.length > 0) {
+            progress = (problemSetIndex / problemSet.length) * 100;
+        } else if (gameActive && currentMode === 'timeLimit' && gameStartTime) {
+            const elapsedTime = (new Date() - gameStartTime) / 1000;
+            const duration = currentTimeLimit;
+            progress = (elapsedTime / duration) * 100;
         }
+        gameProgressBar.style.width = `${Math.max(0, Math.min(100, progress))}%`;
     }
 
 
@@ -1115,13 +1091,13 @@
 
         problemTextStaticElement = document.getElementById('problemTextStatic');
         problemTextDynamicElement = document.getElementById('problemTextDynamic');
+        problemAreaElement = document.querySelector('.problem-area');
         inputField = document.getElementById('inputField');
         countdownDisplay = document.getElementById('countdownDisplay');
         currentKpmDisplay = document.getElementById('currentKpmDisplay');
         mainContainer = document.querySelector('.container');
-        problemAreaElement = document.querySelector('.problem-area'); 
-        progressBarContainer = document.getElementById('progressBarContainer');
-        progressBar = document.getElementById('progressBar');
+        gameProgressBar = document.getElementById('gameProgressBar');
+        
 
         practiceWordListsContainerModal = document.getElementById('practiceWordListsContainerModal');
         selectAllListsBtnModal = document.getElementById('selectAllListsBtnModal');
@@ -1203,6 +1179,10 @@
         resetBtn.addEventListener('click', () => {
             resetGame();
         });
+        if(problemAreaElement && inputField) problemAreaElement.addEventListener('click', () => {
+            if(inputField) inputField.focus();
+        });
+
 
         // Modals
         wordRegistrationBtn.addEventListener('click', () => {
@@ -1246,10 +1226,6 @@
         modeSelect.addEventListener('change', (e) => { 
             currentMode = e.target.value;
             timeLimitOptions.style.display = currentMode === 'timeLimit' ? 'block' : 'none';
-            if (progressBarContainer) { 
-                progressBarContainer.style.display = currentMode === 'normal' ? 'block' : 'none';
-                if (currentMode === 'normal') updateProgressBar(progressCompletedProblems, problemSet.length || 50);
-            }
             saveSettings(); 
             if (!gameActive) loadInitialProblemDisplay();
         });
@@ -1356,9 +1332,6 @@
         modeSelect.value = currentMode;
         timeLimitSelect.value = currentTimeLimit;
         timeLimitOptions.style.display = currentMode === 'timeLimit' ? 'block' : 'none';
-        if (progressBarContainer) {
-             progressBarContainer.style.display = currentMode === 'normal' ? 'block' : 'none';
-        }
         applyTheme(currentTheme); 
         soundToggle.checked = soundEnabled;
     }
@@ -1729,14 +1702,13 @@
 
     // --- Game Core Logic ---
     let problemSet = []; 
-    // practiceSessionWordPool and practiceSessionWordPoolIndex are declared in Game State section
+    // practiceSessionWordPool and practiceSessionWordPoolIndex are already declared in Game State section
 
     function prepareNormalModeProblems() {
         if (currentWords.length === 0) {
             problemSet = [];
             problemSetIndex = 0;
-            progressCompletedProblems = 0;
-            updateProgressBar(0,0);
+            updateProgressBar();
             return;
         }
 
@@ -1762,8 +1734,7 @@
             problemSet.push(practiceSessionWordPool[practiceSessionWordPoolIndex++]);
         }
         problemSetIndex = 0; 
-        progressCompletedProblems = 0; // Reset for the new set of 50
-        updateProgressBar(progressCompletedProblems, problemSet.length);
+        updateProgressBar();
     }
     
     function shuffleArray(array) {
@@ -1793,7 +1764,7 @@
     }
 
     function getProblemTextForStaticDisplay() {
-        if (!currentProblem) return "練習する単語リストを選択・登録してください";
+        if (!currentProblem) return "準備完了。スタートボタンまたはスペースキーで問題表示！";
         const textToDisplay = currentProblem.note || currentProblem.display;
         return sanitizeString(textToDisplay, false).toLowerCase(); 
     }
@@ -1857,19 +1828,13 @@
     }
     
     function loadInitialProblemDisplay() {
-        if (currentMode === 'normal' && progressBarContainer) {
-            progressBarContainer.style.display = 'block';
-            updateProgressBar(0, 50); 
-        } else if (progressBarContainer) {
-            progressBarContainer.style.display = 'none';
-        }
-
         if (currentWords.length === 0) {
             if (problemTextStaticElement) problemTextStaticElement.textContent = "練習する単語リストを選択・登録してください";
             if (problemTextDynamicElement) problemTextDynamicElement.innerHTML = "";
             if (startBtn) startBtn.disabled = true;
             currentProblem = null;
             problemToType = "";
+             updateProgressBar();
             return false; 
         }
         if (startBtn) startBtn.disabled = false;
@@ -1881,11 +1846,10 @@
                 if (problemTextStaticElement) problemTextStaticElement.textContent = "選択されたリストに練習可能な単語がありません (通常モード)。";
                 if (startBtn) startBtn.disabled = true;
                 currentProblem = null; problemToType = "";
-                updateProgressBar(0,0);
+                updateProgressBar();
                 return false;
             }
             currentProblem = problemSet[problemSetIndex]; 
-            // updateProgressBar(progressCompletedProblems, problemSet.length); // Already done in prepareNormalModeProblems
         } else { 
             currentProblem = getRandomProblemForTimeLimit();
         }
@@ -1895,6 +1859,7 @@
             if (problemTextDynamicElement) problemTextDynamicElement.innerHTML = "";
             if (startBtn) startBtn.disabled = true;
             problemToType = "";
+            updateProgressBar();
             return false;
         }
 
@@ -1906,49 +1871,26 @@
         if (countdownDisplay) countdownDisplay.textContent = currentMode === 'timeLimit' ? currentTimeLimit : '--';
         if (currentKpmDisplay) currentKpmDisplay.textContent = "0";
         wordCompleted = false; 
+        if (problemTextStaticElement) problemTextStaticElement.textContent = "準備完了。スタートボタンまたはスペースキーで問題表示！";
+        updateProgressBar();
         return true; 
     }
 
     function startGame() {
-        if (gameActive) return;
+        if (gameActive || gamePendingStart) return; 
         if (!audioContextStarted) initializeAudio();
 
         updateCurrentWordsListFromSelections(); 
         if (currentWords.length === 0) { 
             if (problemTextStaticElement) problemTextStaticElement.textContent = "練習する単語リストを選択・登録してください";
             if (startBtn) startBtn.disabled = true;
-            if (progressBarContainer) progressBarContainer.style.display = 'none';
             showToast("練習する単語がありません。リストを選択するか、単語を登録してください。", "error");
             return;
         }
         
-        progressCompletedProblems = 0; 
-        if (currentMode === 'normal') {
-            prepareNormalModeProblems(); 
-             if (problemSet.length === 0) { 
-                 if (problemTextStaticElement) problemTextStaticElement.textContent = "練習可能な単語がありません (通常モード)。";
-                 if (startBtn) startBtn.disabled = true;
-                 if (progressBarContainer) progressBarContainer.style.display = 'none';
-                 return;
-            }
-            currentProblem = getNextProblemForNormalMode(); 
-            if (progressBarContainer) progressBarContainer.style.display = 'block';
-            updateProgressBar(progressCompletedProblems, problemSet.length);
-        } else { 
-            currentProblem = getRandomProblemForTimeLimit();
-            if (progressBarContainer) progressBarContainer.style.display = 'none';
-        }
-        
-        if (!currentProblem) { 
-            if (problemTextStaticElement) problemTextStaticElement.textContent = "練習可能な単語がありません。";
-            if (startBtn) startBtn.disabled = true;
-            if (progressBarContainer) progressBarContainer.style.display = 'none';
-            return;
-        }
+        gamePendingStart = true;
+        gameActive = false;    
 
-        problemToType = getProblemTextToType(); 
-        
-        gameActive = true;
         scoreSubmittedThisGame = false;
         currentProblemCharIndex = 0;
         correctStrokes = 0;
@@ -1957,9 +1899,28 @@
         mistypedKeysStats = {};
         wordCompleted = false;
 
-        if (problemTextStaticElement) { 
-            problemTextStaticElement.classList.add('prompt-text-game-active');
+        if (currentMode === 'normal') {
+            prepareNormalModeProblems(); 
+             if (problemSet.length === 0) { 
+                 if (problemTextStaticElement) problemTextStaticElement.textContent = "練習可能な単語がありません (通常モード)。";
+                 if (startBtn) startBtn.disabled = true;
+                 gamePendingStart = false; 
+                 return;
+            }
+            currentProblem = getNextProblemForNormalMode(); 
+        } else { 
+            currentProblem = getRandomProblemForTimeLimit();
         }
+        
+        if (!currentProblem) { 
+            if (problemTextStaticElement) problemTextStaticElement.textContent = "練習可能な単語がありません。";
+            if (startBtn) startBtn.disabled = true;
+            gamePendingStart = false; 
+            return;
+        }
+
+        problemToType = getProblemTextToType(); 
+        
         if (problemAreaElement) problemAreaElement.classList.add('game-in-progress');
         if (startBtn) startBtn.disabled = true;
         if (resetBtn) resetBtn.disabled = false; 
@@ -1971,15 +1932,13 @@
         renderProblemStatic(); 
         renderProblemDynamic(); 
 
-        gameStartTime = new Date();
         if (currentMode === 'timeLimit') {
-            countdownDisplay.textContent = currentTimeLimit;
-            timerInterval = setInterval(updateCountdownDisplay, 1000);
+            if(countdownDisplay) countdownDisplay.textContent = currentTimeLimit; 
         } else {
-            countdownDisplay.textContent = '--';
+            if(countdownDisplay) countdownDisplay.textContent = '--';
         }
-        playSound('gameStart');
-        updateTotalPlayStats({plays: 1}); 
+        if (currentKpmDisplay) currentKpmDisplay.textContent = "0";
+        updateProgressBar(); 
     }
 
     function updateCountdownDisplay() {
@@ -1987,6 +1946,9 @@
         const currentTime = parseInt(countdownDisplay.textContent);
         if (currentTime > 0) {
             countdownDisplay.textContent = currentTime - 1;
+        }
+        if (currentMode === 'timeLimit') {
+            updateProgressBar(); 
         }
         if (currentTime - 1 <= 0) {
             clearInterval(timerInterval);
@@ -1996,6 +1958,7 @@
 
     function resetGame() {
         gameActive = false;
+        gamePendingStart = false; 
         clearInterval(timerInterval);
         currentProblemCharIndex = 0;
         problemToType = "";
@@ -2003,7 +1966,6 @@
         incorrectStrokes = 0;
         totalTypedInGame = 0;
         problemSetIndex = 0; 
-        progressCompletedProblems = 0;
         
         if (problemTextStaticElement) { 
             problemTextStaticElement.classList.remove('prompt-text-game-active');
@@ -2020,21 +1982,19 @@
     }
     
     async function endGame() { 
-        if (!gameActive) return; 
+        if (!gameActive && !gamePendingStart) return; 
         gameActive = false;
+        gamePendingStart = false;
         clearInterval(timerInterval);
         playSound('gameEnd');
 
         if (problemTextStaticElement) { 
             problemTextStaticElement.classList.remove('prompt-text-game-active');
         }
-        if (currentMode === 'normal' && problemSet.length > 0) {
-            updateProgressBar(problemSet.length, problemSet.length); 
-        }
+        updateProgressBar(); // Set progress to 0 or 100 depending on desired end state
 
-
-        const elapsedTime = (new Date() - gameStartTime) / 1000; 
-        const kpm = elapsedTime > 0 ? Math.round((correctStrokes / elapsedTime) * 60) : 0;
+        const elapsedTime = gameStartTime ? (new Date() - gameStartTime) / 1000 : 0; 
+        const kpm = elapsedTime > 0 && correctStrokes > 0 ? Math.round((correctStrokes / elapsedTime) * 60) : 0;
         const accuracy = totalTypedInGame > 0 ? Math.round((correctStrokes / totalTypedInGame) * 100) : 0;
 
         if (modalKpmDisplay) modalKpmDisplay.textContent = kpm;
@@ -2050,13 +2010,15 @@
         if (resetBtn) resetBtn.disabled = true; 
         if (problemAreaElement) problemAreaElement.classList.remove('game-in-progress');
         
-        updateTotalPlayStats({
-            time: elapsedTime,
-            typed: correctStrokes, 
-            mistakes: incorrectStrokes,
-            kpm: kpm,
-            accuracy: accuracy
-        });
+        if (elapsedTime > 0) { // Only update stats if game actually ran
+            updateTotalPlayStats({
+                time: elapsedTime,
+                typed: correctStrokes, 
+                mistakes: incorrectStrokes,
+                kpm: kpm,
+                accuracy: accuracy
+            });
+        }
         if (inputField) inputField.blur();
     }
 
@@ -2064,7 +2026,7 @@
     function handleGlobalKeydown(event) {
         if (event.key === 'Escape') {
             event.preventDefault();
-            if (gameActive) {
+            if (gameActive || gamePendingStart) { 
                 endGame();
             } else if (resultsModal.style.display === 'flex') {
                 closeModal(resultsModal);
@@ -2104,14 +2066,16 @@
             
             if (activeEl === document.body || activeEl === inputField || 
                 (resultsModal.style.display === 'flex' && activeEl !== modalPlayerNameInput && activeEl !== submitScoreBtn && activeEl !== retryBtnModal) ) {
-                event.preventDefault(); 
-                if (!gameActive) {
+                
+                if (!gameActive && !gamePendingStart) { // Only allow space to start if not already playing or pending
+                    event.preventDefault(); 
                     if (resultsModal.style.display === 'flex') { 
                         closeModal(resultsModal);
                         resetGame(); 
                     }
                     startGame();
-                } else if (wordCompleted) { 
+                } else if (wordCompleted && gameActive) { 
+                     event.preventDefault(); 
                     proceedToNextProblem();
                 }
             } else if (activeEl && (activeEl.tagName === 'BUTTON' || activeEl.tagName === 'SELECT' || activeEl.type === 'checkbox')) {
@@ -2122,38 +2086,63 @@
 
     function proceedToNextProblem() {
         wordCompleted = false; 
+        currentProblemCharIndex = 0;
+        totalTypedInGame = 0; // Reset for the next word's accuracy calculation if needed, or keep cumulative for session
         
         if (currentMode === 'timeLimit') {
             currentProblem = getRandomProblemForTimeLimit(); 
-            if (currentProblem) {
-                problemToType = getProblemTextToType();
-                currentProblemCharIndex = 0;
-                renderProblemStatic();
-                renderProblemDynamic();
-            } else { 
-                endGame(); 
-            }
         } else { // Normal Mode
             currentProblem = getNextProblemForNormalMode(); 
-            if (currentProblem) {
-                progressCompletedProblems = problemSetIndex -1; 
-                updateProgressBar(progressCompletedProblems, problemSet.length);
-                problemToType = getProblemTextToType();
-                currentProblemCharIndex = 0;
-                renderProblemStatic();
-                renderProblemDynamic();
-            } else { 
-                updateProgressBar(problemSet.length, problemSet.length); 
-                endGame(); 
-            }
+        }
+        
+        if (currentProblem) {
+            problemToType = getProblemTextToType();
+            renderProblemStatic();
+            renderProblemDynamic();
+            if(inputField) inputField.focus(); 
+            updateProgressBar();
+        } else { 
+            endGame(); 
         }
     }
 
 
     function handleKeydown(event) {
-        if (!gameActive || !problemToType) return;
+        if (!gameActive && !gamePendingStart) return; 
 
         const pressedKey = event.key; 
+
+        if (gamePendingStart) {
+            if (pressedKey.length === 1 || pressedKey === ' ' || pressedKey === 'Spacebar') { 
+                gameActive = true;
+                gamePendingStart = false;
+                gameStartTime = new Date();
+                if (problemTextStaticElement) {
+                    problemTextStaticElement.classList.add('prompt-text-game-active');
+                }
+                if (currentMode === 'timeLimit') { 
+                    if (countdownDisplay) countdownDisplay.textContent = currentTimeLimit;
+                    clearInterval(timerInterval); 
+                    timerInterval = setInterval(updateCountdownDisplay, 1000);
+                }
+                playSound('gameStart'); 
+                updateTotalPlayStats({plays: 1}); 
+                // Do not return here, let the first key be processed
+            } else {
+                 // Prevent starting game with non-character keys, but allow Shift, etc. to pass through for now
+                if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Tab', 'Escape', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter', 'Backspace'].includes(pressedKey)) {
+                    return;
+                }
+                // If it's some other non-single-char key that wasn't a modifier, maybe also return.
+                // For simplicity now, only length === 1 or space starts.
+                else if (pressedKey.length !== 1 && pressedKey !== ' ' && pressedKey !== 'Spacebar') {
+                    return;
+                }
+            }
+        }
+        
+        if (!gameActive || !problemToType) return;
+
 
         if (wordCompleted) { 
             if (pressedKey !== ' ') { 
@@ -2192,7 +2181,7 @@
         
         if (currentKpmDisplay) {
             const elapsedTimeSinceStart = (new Date() - gameStartTime) / 1000;
-            const currentInstantKpm = elapsedTimeSinceStart > 0 ? Math.round((correctStrokes / elapsedTimeSinceStart) * 60) : 0;
+            const currentInstantKpm = elapsedTimeSinceStart > 0 && correctStrokes > 0 ? Math.round((correctStrokes / elapsedTimeSinceStart) * 60) : 0;
             currentKpmDisplay.textContent = currentInstantKpm;
         }
 
@@ -2206,6 +2195,7 @@
         } else {
              highlightNextChar(); 
         }
+        if (currentMode === 'normal') updateProgressBar(); // Update progress bar after each char in normal mode
     }
     
     // --- Statistics ---
