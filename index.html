@@ -839,7 +839,7 @@
     // DOM Elements
     let startBtn, resetBtn, wordRegistrationBtn, rankingBtn, totalStatsBtn, settingsBtn;
     let problemTextStaticElement, problemTextDynamicElement, inputField, countdownDisplay, currentKpmDisplay;
-    let gameProgressBar; // Added for progress bar
+    let gameProgressBar; 
     let settingsModal, wordRegistrationModal, resultsModal, rankingModal, totalStatsModal, customConfirmModal, renameListModal;
     let confirmMessageText, confirmOkBtn, confirmCancelBtn;
     let renameListIdInput, editListNameInput, saveRenameListBtn, cancelRenameListBtn;
@@ -1081,7 +1081,6 @@
 
 
     document.addEventListener('DOMContentLoaded', () => {
-        // Initialize DOM Elements
         startBtn = document.getElementById('startBtn');
         resetBtn = document.getElementById('resetBtn');
         wordRegistrationBtn = document.getElementById('wordRegistrationBtn');
@@ -1165,7 +1164,6 @@
         totalMistypedKeysListElement = document.getElementById('totalMistypedKeysList');
         resetAllStatsBtn = document.getElementById('resetAllStatsBtn');
 
-        // Load data and settings
         loadSettings();
         loadWordLists(); 
         loadTotalMistypedKeys();
@@ -1174,7 +1172,6 @@
         renderPracticeListCheckboxes(); 
         updateCurrentWordsListFromSelections(); 
 
-        // Event Listeners
         startBtn.addEventListener('click', startGame);
         resetBtn.addEventListener('click', () => {
             resetGame();
@@ -1183,8 +1180,6 @@
             if(inputField) inputField.focus();
         });
 
-
-        // Modals
         wordRegistrationBtn.addEventListener('click', () => {
             renderManageWordLists(); 
             openModal(wordRegistrationModal);
@@ -1221,18 +1216,16 @@
         });
         if(cancelRenameListBtn) cancelRenameListBtn.addEventListener('click', () => closeRenameListModal(null));
 
-
-        // Settings Listeners (Immediate reflection)
         modeSelect.addEventListener('change', (e) => { 
             currentMode = e.target.value;
             timeLimitOptions.style.display = currentMode === 'timeLimit' ? 'block' : 'none';
             saveSettings(); 
-            if (!gameActive) loadInitialProblemDisplay();
+            if (!gameActive && !gamePendingStart) loadInitialProblemDisplay();
         });
         timeLimitSelect.addEventListener('change', (e) => {
             currentTimeLimit = parseInt(e.target.value);
             saveSettings();
-            if (!gameActive && currentMode === 'timeLimit') loadInitialProblemDisplay();
+            if (!gameActive && !gamePendingStart && currentMode === 'timeLimit') loadInitialProblemDisplay();
         });
         themeSelect.addEventListener('change', (e) => { 
             applyTheme(e.target.value); 
@@ -1246,7 +1239,6 @@
             }
         });
         
-        // Word Registration and List Management Listeners
         createWordListBtn.addEventListener('click', createNewWordList);
         
         if(correctListDataBtnModal) correctListDataBtnModal.addEventListener('click', correctSelectedListDataInView);
@@ -1257,7 +1249,6 @@
         
         viewRegisteredWordsListSelect.addEventListener('change', () => displayWordsInSelectedListForView(viewRegisteredWordsOrderReversed));
         
-        // Results Modal Listeners
         submitScoreBtn.addEventListener('click', handleSubmitScore);
         retryBtnModal.addEventListener('click', () => {
             closeModal(resultsModal);
@@ -1265,20 +1256,11 @@
             startGame();
         });
         
-        // Ranking Modal Listener
         rankingDisplayModeSelect.addEventListener('change', displayRanking);
-
-        // Total Stats Modal Listener
         resetAllStatsBtn.addEventListener('click', resetAllStatistics);
-
-        // Global Keydown Listener for Start/Restart/Esc
         document.addEventListener('keydown', handleGlobalKeydown);
-        // Typing input field listener
         inputField.addEventListener('keydown', handleKeydown);
-        
         if(selectAllListsBtnModal) selectAllListsBtnModal.addEventListener('click', toggleSelectAllPracticeListsModal);
-
-
     });
 
 
@@ -1991,14 +1973,19 @@
         if (problemTextStaticElement) { 
             problemTextStaticElement.classList.remove('prompt-text-game-active');
         }
-        updateProgressBar(); // Set progress to 0 or 100 depending on desired end state
+        updateProgressBar(); 
 
         const elapsedTime = gameStartTime ? (new Date() - gameStartTime) / 1000 : 0; 
+        
+        let accuracy = 0;
+        if (totalTypedInGame > 0) { 
+            accuracy = Math.round((correctStrokes / totalTypedInGame) * 100);
+        }
         const kpm = elapsedTime > 0 && correctStrokes > 0 ? Math.round((correctStrokes / elapsedTime) * 60) : 0;
-        const accuracy = totalTypedInGame > 0 ? Math.round((correctStrokes / totalTypedInGame) * 100) : 0;
+
 
         if (modalKpmDisplay) modalKpmDisplay.textContent = kpm;
-        if (modalAccuracyDisplay) modalAccuracyDisplay.textContent = accuracy;
+        if (modalAccuracyDisplay) modalAccuracyDisplay.textContent = accuracy; 
         if (modalTimeDisplay) modalTimeDisplay.textContent = elapsedTime.toFixed(1);
         if (modalMissesDisplay) modalMissesDisplay.textContent = incorrectStrokes;
         if (modalTypedCharsDisplay) modalTypedCharsDisplay.textContent = correctStrokes; 
@@ -2010,13 +1997,13 @@
         if (resetBtn) resetBtn.disabled = true; 
         if (problemAreaElement) problemAreaElement.classList.remove('game-in-progress');
         
-        if (elapsedTime > 0) { // Only update stats if game actually ran
+        if (elapsedTime > 0 || totalTypedInGame > 0) { 
             updateTotalPlayStats({
                 time: elapsedTime,
                 typed: correctStrokes, 
                 mistakes: incorrectStrokes,
                 kpm: kpm,
-                accuracy: accuracy
+                accuracy: accuracy 
             });
         }
         if (inputField) inputField.blur();
@@ -2067,7 +2054,7 @@
             if (activeEl === document.body || activeEl === inputField || 
                 (resultsModal.style.display === 'flex' && activeEl !== modalPlayerNameInput && activeEl !== submitScoreBtn && activeEl !== retryBtnModal) ) {
                 
-                if (!gameActive && !gamePendingStart) { // Only allow space to start if not already playing or pending
+                if (!gameActive && !gamePendingStart) { 
                     event.preventDefault(); 
                     if (resultsModal.style.display === 'flex') { 
                         closeModal(resultsModal);
@@ -2087,7 +2074,7 @@
     function proceedToNextProblem() {
         wordCompleted = false; 
         currentProblemCharIndex = 0;
-        totalTypedInGame = 0; // Reset for the next word's accuracy calculation if needed, or keep cumulative for session
+        // totalTypedInGame = 0; // Reset only if accuracy is per-word, not per-game
         
         if (currentMode === 'timeLimit') {
             currentProblem = getRandomProblemForTimeLimit(); 
@@ -2127,14 +2114,11 @@
                 }
                 playSound('gameStart'); 
                 updateTotalPlayStats({plays: 1}); 
-                // Do not return here, let the first key be processed
+                updateProgressBar(); // Update progress bar on game start
             } else {
-                 // Prevent starting game with non-character keys, but allow Shift, etc. to pass through for now
                 if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Tab', 'Escape', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter', 'Backspace'].includes(pressedKey)) {
                     return;
                 }
-                // If it's some other non-single-char key that wasn't a modifier, maybe also return.
-                // For simplicity now, only length === 1 or space starts.
                 else if (pressedKey.length !== 1 && pressedKey !== ' ' && pressedKey !== 'Spacebar') {
                     return;
                 }
@@ -2195,7 +2179,7 @@
         } else {
              highlightNextChar(); 
         }
-        if (currentMode === 'normal') updateProgressBar(); // Update progress bar after each char in normal mode
+        if (currentMode === 'normal') updateProgressBar(); 
     }
     
     // --- Statistics ---
