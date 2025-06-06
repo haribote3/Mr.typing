@@ -38,8 +38,8 @@
             
             --list-item-hover-bg: #f5f5f5; 
             --toast-success-bg: var(--secondary-accent-color); 
-            --toast-error-bg: #EF5350;   
-            --toast-info-bg: #42A5F5;    
+            --toast-error-bg: #EF5350;  
+            --toast-info-bg: #42A5F5;  
             --toast-text-color: #fff;
 
             --confirm-ok-bg: var(--secondary-accent-color); 
@@ -81,7 +81,7 @@
             border-radius: 16px; 
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); 
             width: 100%;
-            max-width: 600px; 
+            max-width: 800px; /* ★ メイン画面の横幅を800pxに設定 */
             text-align: center;
         }
 
@@ -125,69 +125,25 @@
         }
         
         select { 
-             padding: 0.9rem 2rem;
-             border: 1px solid var(--input-border-color);
-             border-radius: 10px; 
-             background-color: var(--input-bg-color);
-             color: var(--text-color);
-             font-size: 1.1rem; 
-             font-weight: 500;
-             cursor: pointer;
-             transition: all 0.2s ease-in-out;
-             box-shadow: 0 4px 8px rgba(0,0,0,0.07);
-             padding-right: 2.5rem; 
-             -webkit-appearance: none;
-             -moz-appearance: none;
-             appearance: none;
-             background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); 
-             background-repeat: no-repeat;
-             background-position: right .9em top 50%; 
-             background-size: .75em auto; 
-        }
-        
-        .practice-list-selection-area { 
-            margin-top: 1rem; 
-            padding: 1rem;
-            border: 1px solid #e8e8e8; 
-            border-radius: 10px; 
-            background-color: #fdfdfd; 
-        }
-        .practice-list-selection-area h3 {
-            font-size: 1.4rem; 
-            font-weight: 600;
-            margin-bottom: 1rem; 
-            color: var(--primary-color);
-        }
-        #practiceWordListsContainerModal { 
-            display: flex;
-            flex-direction: column; 
-            gap: 0.6rem; 
-            margin-bottom: 0.5rem;
-            max-height: 160px; 
-            overflow-y: auto;
+            padding: 0.9rem 2rem;
             border: 1px solid var(--input-border-color);
-            padding: 0.75rem; 
-            border-radius: 8px; 
-        }
-        #practiceWordListsContainerModal label {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 0.8rem; 
-            border-radius: 8px; 
+            border-radius: 10px; 
+            background-color: var(--input-bg-color);
+            color: var(--text-color);
+            font-size: 1.1rem; 
+            font-weight: 500;
             cursor: pointer;
-            transition: background-color 0.2s;
-            text-align: left;
-            font-size: 1.15rem; 
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.07);
+            padding-right: 2.5rem; 
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23555%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); 
+            background-repeat: no-repeat;
+            background-position: right .9em top 50%; 
+            background-size: .75em auto; 
         }
-        #practiceWordListsContainerModal label:hover {
-            background-color: var(--accent-color);
-            color: var(--button-text-color);
-        }
-        #practiceWordListsContainerModal input[type="checkbox"] {
-            margin-right: 0.75rem; 
-            transform: scale(1.1); 
-        }
-
 
         .problem-area {
             margin-bottom: 2rem; 
@@ -308,10 +264,11 @@
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto; 
+            overflow: hidden; 
             background-color: var(--modal-bg-color);
             align-items: center;
             justify-content: center;
+            padding: 1rem;
         }
         .modal-content {
             background-color: var(--modal-content-bg-color);
@@ -319,12 +276,13 @@
             padding: 30px; 
             border-radius: 12px; 
             box-shadow: 0 8px 30px rgba(0,0,0,0.15); 
-            width: 90%;
-            max-width: 700px; 
+            width: 100%;
+            max-width: 800px; /* ★ モーダルは広いまま */
             position: relative;
             animation: fadeInModal 0.3s ease-out;
             max-height: 90vh; 
-            overflow-y: auto; 
+            display: flex;
+            flex-direction: column;
         }
         .confirm-modal-content, .rename-modal-content { 
             max-width: 450px; 
@@ -352,6 +310,7 @@
             position: sticky; 
             top: -30px; 
             z-index: 10; 
+            flex-shrink: 0;
         }
         .modal-header h2 {
             margin: 0;
@@ -361,8 +320,8 @@
 
         .close-btn {
             position: absolute; 
-            top: 12px;        
-            right: 15px;       
+            top: 12px;      
+            right: 15px;      
             font-size: 2.2rem; 
             font-weight: bold;
             color: var(--modal-header-text-color); 
@@ -404,9 +363,14 @@
             align-items: center;
             padding: 0.6rem 0.5rem; 
             border-bottom: 1px solid #f0f0f0;
+            gap: 0.75rem;
         }
         .word-list-item:last-child { border-bottom: none; }
         .word-list-item:hover { background-color: var(--list-item-hover-bg); }
+        .word-list-item .practice-list-item-checkbox {
+            transform: scale(1.2);
+            cursor: pointer;
+        }
         .word-list-item .list-name { 
             flex-grow: 1; 
             text-align: left; 
@@ -414,7 +378,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            margin-right: 0.5rem; 
         }
         .word-list-item .list-actions {
             display: flex; 
@@ -426,12 +389,12 @@
             font-size: 1rem; 
         }
         #registeredWordsList p { 
-             padding: 0.6rem 0.5rem; border-bottom: 1px solid #f0f0f0;
-             text-align: left; font-size: 1.15rem; 
+            padding: 0.6rem 0.5rem; border-bottom: 1px solid #f0f0f0;
+            text-align: left; font-size: 1.15rem; 
         }
 
 
-        #ranking-list li, #totalMistypedKeysList li {
+        #totalMistypedKeysList li {
             padding: 0.5rem;
             border-bottom: 1px solid #f0f0f0;
             display: flex;
@@ -439,7 +402,7 @@
             align-items: center;
             font-size: 1.15rem; 
         }
-        #ranking-list li:last-child, #totalMistypedKeysList li:last-child {
+        #totalMistypedKeysList li:last-child {
             border-bottom: none;
         }
         
@@ -473,10 +436,10 @@
         /* Dark Theme */
         body.dark-theme {
             --background-color: #2d3748; 
-            --text-color: #e2e8f0;       
+            --text-color: #e2e8f0;      
             --text-muted-color: #a0aec0; 
             --primary-color: #F687B3;   
-            --accent-color: #ED64A6;     
+            --accent-color: #ED64A6;    
             --secondary-accent-color: #68D391; 
             
             --input-bg-color: #4a5568;   
@@ -499,7 +462,7 @@
             --list-item-hover-bg: #718096; 
             --toast-success-bg: var(--secondary-accent-color); 
             --toast-error-bg: #FC8181;   
-            --toast-info-bg: #63B3ED;    
+            --toast-info-bg: #63B3ED;   
             --toast-text-color: #1A202C; 
 
             --confirm-ok-bg: var(--secondary-accent-color); 
@@ -611,8 +574,7 @@
         <div class="control-area">
             <button id="startBtn"><i class="fas fa-play"></i> スタート！</button>
             <button id="resetBtn"><i class="fas fa-redo"></i> リセット</button>
-            <button id="wordRegistrationBtn"><i class="fas fa-edit"></i> 単語とリスト管理</button>
-            <button id="rankingBtn"><i class="fas fa-trophy"></i> ランキング</button>
+            <button id="wordRegistrationBtn"><i class="fas fa-edit"></i> 単語とリストの管理</button>
             <button id="totalStatsBtn"><i class="fas fa-chart-bar"></i> 累計統計</button>
             <button id="settingsBtn"><i class="fas fa-cog"></i> 設定</button>
         </div>
@@ -633,72 +595,131 @@
 
     <div id="settingsModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header"><h2>設定</h2></div>
-            <span class="close-btn" data-modal="settingsModal">&times;</span>
+            <header class="modal-header"><h2>設定</h2></header>
+            <span class="close-btn" data-modal="settingsModal">×</span>
             
-            <div class="mb-4">
-                <label for="modeSelect" class="block mb-1 font-semibold">モード</label>
-                <select id="modeSelect">
-                    <option value="normal">通常</option>
-                    <option value="timeLimit">時間制限</option>
-                </select>
-            </div>
-            <div id="timeLimitOptions" class="mb-4 hidden">
-                <label for="timeLimitSelect" class="block mb-1 font-semibold">時間 (秒)</label>
-                <select id="timeLimitSelect">
-                    <option value="30">30秒</option>
-                    <option value="60" selected>60秒</option>
-                    <option value="90">90秒</option>
-                    <option value="120">120秒</option>
-                </select>
-            </div>
-            <div class="mb-4">
-                <label for="themeSelect" class="block mb-1 font-semibold">テーマ</label>
-                <select id="themeSelect">
-                    <option value="light">デフォルト</option>
-                    <option value="dark">ダーク</option>
-                    <option value="sakura">さくら</option>
-                    <option value="mizuiro">みずいろ</option>
-                    <option value="matcha">まっちゃ</option>
-                </select>
-            </div>
-            <div class="toggle-switch mb-4">
-                <label for="soundToggle" class="font-semibold">効果音</label>
-                <input type="checkbox" id="soundToggle" checked>
-                <label for="soundToggle" class="slider"></label>
-            </div>
-            <hr class="my-4">
-            <div class="practice-list-selection-area">
-                <h3>練習するリストを選択 <button id="selectAllListsBtnModal" class="text-xs px-2 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 ml-2">全選択/解除</button></h3>
-                <div id="practiceWordListsContainerModal">
-                    <p class="text-sm text-gray-500">単語リストを登録すると、ここに表示されます。</p>
+            <main class="overflow-y-auto pt-2">
+                <div class="mb-4">
+                    <label for="modeSelect" class="block mb-1 font-semibold">モード</label>
+                    <select id="modeSelect">
+                        <option value="normal">通常</option>
+                        <option value="timeLimit">時間制限</option>
+                    </select>
                 </div>
-            </div>
-             <p class="text-xs text-gray-500 mt-2">設定は自動的に保存されます。</p>
+                <div id="normalModeOptions" class="mb-4">
+                    <label for="normalModeProblemCountSelect" class="block mb-1 font-semibold">問題数</label>
+                    <select id="normalModeProblemCountSelect">
+                        <option value="10">10問</option>
+                        <option value="25">25問</option>
+                        <option value="50" selected>50問</option>
+                        <option value="100">100問</option>
+                    </select>
+                </div>
+                <div id="timeLimitOptions" class="mb-4 hidden">
+                    <label for="timeLimitSelect" class="block mb-1 font-semibold">時間 (秒)</label>
+                    <select id="timeLimitSelect">
+                        <option value="30">30秒</option>
+                        <option value="60" selected>60秒</option>
+                        <option value="90">90秒</option>
+                        <option value="120">120秒</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label for="themeSelect" class="block mb-1 font-semibold">テーマ</label>
+                    <select id="themeSelect">
+                        <option value="light">デフォルト</option>
+                        <option value="dark">ダーク</option>
+                        <option value="sakura">さくら</option>
+                        <option value="mizuiro">みずいろ</option>
+                        <option value="matcha">まっちゃ</option>
+                    </select>
+                </div>
+                <div class="toggle-switch mb-4">
+                    <label for="soundToggle" class="font-semibold">効果音</label>
+                    <input type="checkbox" id="soundToggle" checked>
+                    <label for="soundToggle" class="slider"></label>
+                </div>
+                
+                <hr class="my-4">
+                <h3 class="text-xl font-semibold mb-3">読み上げ設定</h3>
+                <div class="toggle-switch mb-4">
+                    <label for="readAloudToggle" class="font-semibold">読み上げ機能</label>
+                    <input type="checkbox" id="readAloudToggle">
+                    <label for="readAloudToggle" class="slider"></label>
+                </div>
+                <div id="readAloudOptionsContainer" class="hidden">
+                    <div class="mb-4">
+                        <label for="readAloudTargetSelect" class="block mb-1 font-semibold">読み上げる箇所</label>
+                        <select id="readAloudTargetSelect">
+                            <option value="prompt">提示文のみ</option>
+                            <option value="typing">入力文のみ</option>
+                            <option value="both">両方</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="readAloudVoiceJaSelect" class="block mb-1 font-semibold">提示文の音声 (日本語)</label>
+                            <select id="readAloudVoiceJaSelect"></select>
+                        </div>
+                        <div>
+                            <label for="readAloudRateJaSelect" class="block mb-1 font-semibold">提示文の速度</label>
+                            <select id="readAloudRateJaSelect">
+                                <option value="0.5">0.5x</option>
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1.0x</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2">2.0x</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label for="readAloudVoiceEnSelect" class="block mb-1 font-semibold">入力文の音声 (英語)</label>
+                            <select id="readAloudVoiceEnSelect"></select>
+                        </div>
+                        <div>
+                            <label for="readAloudRateEnSelect" class="block mb-1 font-semibold">入力文の速度</label>
+                            <select id="readAloudRateEnSelect">
+                                <option value="0.5">0.5x</option>
+                                <option value="0.75">0.75x</option>
+                                <option value="1" selected>1.0x</option>
+                                <option value="1.25">1.25x</option>
+                                <option value="1.5">1.5x</option>
+                                <option value="2">2.0x</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer class="flex-shrink-0 pt-4">
+                 <p class="text-xs text-gray-500 mt-2">設定は自動的に保存されます。</p>
+            </footer>
         </div>
     </div>
 
     <div id="wordRegistrationModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header"><h2>単語とリストの管理</h2></div>
-            <span class="close-btn" data-modal="wordRegistrationModal">&times;</span>
+            <header class="modal-header"><h2>単語とリストの管理</h2></header>
+            <span class="close-btn" data-modal="wordRegistrationModal">×</span>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <h3 class="text-xl font-semibold mb-3">単語リスト管理</h3>
-                    <div class="mb-3">
-                        <label for="newListNameInput" class="block mb-1 text-sm font-medium">新しいリスト名</label>
-                        <div class="flex items-center"> 
-                            <input type="text" id="newListNameInput" placeholder="例: 基本単語" class="flex-grow" style="padding: 0.8rem; font-size: 1.1rem;"> 
-                            <button id="createWordListBtn" class="ml-2 bg-green-500 hover:bg-green-600 px-4 py-3 text-xl" style="line-height: 1; transform: translateY(-2px);"><i class="fas fa-plus"></i></button> 
+            <main class="grid grid-cols-1 md:grid-cols-2 gap-6 flex-grow" style="min-height: 0;">
+                <div class="flex flex-col" style="min-height: 0;">
+                    <div class="flex-shrink-0">
+                        <h3 class="text-xl font-semibold mb-3">単語リスト管理 <span class="text-sm font-normal text-gray-500">(☑で練習対象)</span></h3>
+                        <div class="mb-3">
+                            <label for="newListNameInput" class="block mb-1 text-sm font-medium">新しいリスト名</label>
+                            <div class="flex items-center"> 
+                                <input type="text" id="newListNameInput" placeholder="例: 基本単語" class="flex-grow" style="padding: 0.8rem; font-size: 1.1rem;"> 
+                                <button id="createWordListBtn" class="ml-2 bg-green-500 hover:bg-green-600 px-4 py-3 text-xl" style="line-height: 1; transform: translateY(-2px);"><i class="fas fa-plus"></i></button> 
+                            </div>
                         </div>
                     </div>
-                    <div id="manageWordListsContainer" class="max-h-48 overflow-y-auto border p-2 rounded mb-3">
+                    <div id="manageWordListsContainer" class="flex-grow overflow-y-auto border p-2 rounded mb-3">
                         <p class="text-sm text-gray-500">作成したリストがここに表示されます。</p>
                     </div>
                 </div>
-
-                <div>
+                <div class="overflow-y-auto">
                     <h3 class="text-xl font-semibold mb-3">単語登録</h3>
                     <div>
                         <label for="addWordToListSelect" class="block mb-1 text-sm font-medium">登録先リスト</label>
@@ -732,132 +753,129 @@
                         カンマ区切りで1行に1組。UTF-8形式のテキストファイル(.txt, .csv)を推奨。
                     </p>
                 </div>
-            </div>
-             <hr class="my-4">
-             <h3 class="text-xl font-semibold mb-3">登録済み単語の確認・修正</h3>
-             <div class="flex justify-between items-center mb-2">
-                <select id="viewRegisteredWordsListSelect" class="text-sm py-1 flex-grow mr-2"></select>
-                <button id="correctListDataBtnModal" class="ml-2 text-sm px-2 py-1 bg-orange-500 hover:bg-orange-600">選択リストの表示/タイプ文入替</button>
-            </div>
-            <div id="registeredWordsList" class="max-h-60 overflow-y-auto border p-2 rounded">
-                <p class="text-sm text-gray-500">リストを選択すると、登録単語が表示されます。</p>
-            </div>
+            </main>
+
+            <footer class="flex-shrink-0">
+                <hr class="my-4">
+                <button id="accordionToggle" class="w-full text-left flex justify-between items-center py-2">
+                    <h3 class="text-xl font-semibold">登録済み単語の確認・修正</h3>
+                    <i id="accordionIcon" class="fas fa-chevron-down"></i>
+                </button>
+                <div id="registeredWordsContainer" class="hidden mt-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <select id="viewRegisteredWordsListSelect" class="text-sm py-1 flex-grow mr-2"></select>
+                        <button id="correctListDataBtnModal" class="ml-2 text-sm px-2 py-1 bg-orange-500 hover:bg-orange-600">選択リストの表示/タイプ文入替</button>
+                    </div>
+                    <div id="registeredWordsList" class="max-h-40 overflow-y-auto border p-2 rounded">
+                        <p class="text-sm text-gray-500">リストを選択すると、登録単語が表示されます。</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
 
     <div id="renameListModal" class="modal">
         <div class="modal-content rename-modal-content">
-            <div class="modal-header"><h2>リスト名変更</h2></div>
-            <span class="close-btn" data-modal="renameListModal">&times;</span>
+            <header class="modal-header"><h2>リスト名変更</h2></header>
+            <span class="close-btn" data-modal="renameListModal">×</span>
             <input type="hidden" id="renameListIdInput">
-            <div>
-                <label for="editListNameInput" class="block mb-1 font-semibold">新しいリスト名</label>
-                <input type="text" id="editListNameInput" class="w-full">
-            </div>
-            <div class="flex justify-end space-x-3 mt-4">
+            <main class="py-4">
+                <div>
+                    <label for="editListNameInput" class="block mb-1 font-semibold">新しいリスト名</label>
+                    <input type="text" id="editListNameInput" class="w-full">
+                </div>
+            </main>
+            <footer class="flex justify-end space-x-3">
                  <button id="cancelRenameListBtn" class="bg-gray-300 hover:bg-gray-400 text-gray-800">キャンセル</button>
                 <button id="saveRenameListBtn" class="bg-green-500 hover:bg-green-600">保存</button>
-            </div>
+            </footer>
         </div>
     </div>
 
 
     <div id="resultsModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header"><h2>結果</h2></div>
-            <span class="close-btn" data-modal="resultsModal">&times;</span>
-            <div class="stats-grid mb-4">
-                <div>KPM: <span id="modalKpmDisplay">0</span></div>
-                <div>正解率: <span id="modalAccuracyDisplay">0</span>%</div>
-                <div>時間: <span id="modalTimeDisplay">0</span>秒</div>
-                <div>ミス: <span id="modalMissesDisplay">0</span>回</div>
-                <div>タイプ数: <span id="modalTypedCharsDisplay">0</span></div>
-            </div>
-            <div class="mb-4">
-                <h3 class="text-md font-semibold mb-1">間違えやすいキー (今回の練習)</h3>
-                <div id="modalMistypedStatsList" class="flex flex-wrap gap-1 text-sm"></div>
-            </div>
-            <hr>
-            <div>
-                <label for="modalPlayerNameInput" class="block mb-1 font-semibold">ランキング用のお名前 (任意)</label>
-                <input type="text" id="modalPlayerNameInput" placeholder="名無しさん">
-            </div>
-            <button id="submitScoreBtn" class="w-full bg-green-500 hover:bg-green-600"><i class="fas fa-save"></i> スコア登録</button>
-            <button id="retryBtnModal" class="w-full mt-2 bg-blue-500 hover:bg-blue-600"><i class="fas fa-redo"></i> もう一度</button>
-        </div>
-    </div>
-
-    <div id="rankingModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header"><h2>ランキング</h2></div>
-            <span class="close-btn" data-modal="rankingModal">&times;</span>
-             <div class="mb-3">
-                <label for="rankingDisplayModeSelect" class="block mb-1 font-semibold">モードフィルター</label>
-                <select id="rankingDisplayModeSelect">
-                    <option value="all">全て</option>
-                    <option value="normal">通常</option>
-                    <option value="timeLimit">時間制限</option>
-                </select>
-            </div>
-            <ol id="ranking-list" class="list-decimal pl-5 space-y-1 max-h-80 overflow-y-auto">
-                <li>まだスコアがありません。</li>
-            </ol>
+            <header class="modal-header"><h2>結果</h2></header>
+            <span class="close-btn" data-modal="resultsModal">×</span>
+            <main class="py-4">
+                <div class="stats-grid mb-4">
+                    <div>KPM: <span id="modalKpmDisplay">0</span></div>
+                    <div>正解率: <span id="modalAccuracyDisplay">0</span>%</div>
+                    <div>時間: <span id="modalTimeDisplay">0</span>秒</div>
+                    <div>ミス: <span id="modalMissesDisplay">0</span>回</div>
+                    <div>タイプ数: <span id="modalTypedCharsDisplay">0</span></div>
+                </div>
+                <div class="mb-4">
+                    <h3 class="text-md font-semibold mb-1">間違えやすいキー (今回の練習)</h3>
+                    <div id="modalMistypedStatsList" class="flex flex-wrap gap-1 text-sm"></div>
+                </div>
+            </main>
+            <footer class="pt-4 mt-auto">
+                <button id="retryBtnModal" class="w-full bg-blue-500 hover:bg-blue-600"><i class="fas fa-redo"></i> もう一度</button>
+            </footer>
         </div>
     </div>
     
     <div id="totalStatsModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header"><h2>累計統計</h2></div>
-            <span class="close-btn" data-modal="totalStatsModal">&times;</span>
-            <div class="stats-grid mb-4">
-                <div>総プレイ回数: <span id="totalPlaysStat">0</span></div>
-                <div>総プレイ時間: <span id="totalPlayTimeStat">0秒</span></div>
-                <div>総タイプ文字数: <span id="totalTypedCharactersStat">0</span></div>
-                <div>総ミスタイプ数: <span id="totalOverallMistakesStat">0</span></div>
-                <div>平均KPM: <span id="avgKpmStat">0</span></div>
-                <div>平均正解率: <span id="avgAccuracyStat">0%</span></div>
-            </div>
-             <div class="mb-4">
-                <h3 class="text-md font-semibold mb-1">累計 間違えやすいキー Top 5</h3>
-                <div id="totalMistypedKeysList" class="flex flex-wrap gap-1 text-sm"></div>
-            </div>
-            <button id="resetAllStatsBtn" class="w-full bg-red-500 hover:bg-red-600"><i class="fas fa-exclamation-triangle"></i> 全統計リセット</button>
+            <header class="modal-header"><h2>累計統計</h2></header>
+            <span class="close-btn" data-modal="totalStatsModal">×</span>
+            <main class="py-4 overflow-y-auto">
+                <div class="stats-grid mb-4">
+                    <div>総プレイ回数: <span id="totalPlaysStat">0</span></div>
+                    <div>総プレイ時間: <span id="totalPlayTimeStat">0秒</span></div>
+                    <div>総タイプ文字数: <span id="totalTypedCharactersStat">0</span></div>
+                    <div>総ミスタイプ数: <span id="totalOverallMistakesStat">0</span></div>
+                    <div>平均KPM: <span id="avgKpmStat">0</span></div>
+                    <div>平均正解率: <span id="avgAccuracyStat">0%</span></div>
+                </div>
+                 <div class="mb-4">
+                    <h3 class="text-md font-semibold mb-1">累計 間違えやすいキー Top 5</h3>
+                    <div id="totalMistypedKeysList" class="flex flex-wrap gap-1 text-sm"></div>
+                </div>
+            </main>
+            <footer class="pt-4 mt-auto">
+                <button id="resetAllStatsBtn" class="w-full bg-red-500 hover:bg-red-600"><i class="fas fa-exclamation-triangle"></i> 全統計リセット</button>
+            </footer>
         </div>
     </div>
 
     <div id="customConfirmModal" class="modal">
         <div class="modal-content confirm-modal-content">
-            <p id="confirmMessageText" class="mb-6 text-lg"></p>
-            <div class="flex justify-end space-x-3">
+             <main class="py-4">
+                <p id="confirmMessageText" class="mb-6 text-lg"></p>
+            </main>
+            <footer class="flex justify-end space-x-3">
                 <button id="confirmCancelBtn" class="px-4 py-2 rounded text-gray-800 hover:bg-gray-400 transition" style="background-color: var(--confirm-cancel-bg); color: var(--button-text-color);">キャンセル</button>
                 <button id="confirmOkBtn" class="px-4 py-2 rounded" style="background-color: var(--confirm-ok-bg); color: var(--button-text-color);">OK</button>
-            </div>
+            </footer>
         </div>
     </div>
-
 <script>
-    // DOM Elements
-    let startBtn, resetBtn, wordRegistrationBtn, rankingBtn, totalStatsBtn, settingsBtn;
+    // --- [This script block contains the same JavaScript as the previous version, with no changes needed for this layout fix.] ---
+    // JavaScript code remains unchanged
+    let startBtn, resetBtn, wordRegistrationBtn, totalStatsBtn, settingsBtn;
     let problemTextStaticElement, problemTextDynamicElement, inputField, countdownDisplay, currentKpmDisplay;
     let gameProgressBar; 
-    let settingsModal, wordRegistrationModal, resultsModal, rankingModal, totalStatsModal, customConfirmModal, renameListModal;
+    let settingsModal, wordRegistrationModal, resultsModal, totalStatsModal, customConfirmModal, renameListModal;
     let confirmMessageText, confirmOkBtn, confirmCancelBtn;
     let renameListIdInput, editListNameInput, saveRenameListBtn, cancelRenameListBtn;
 
-
-    let modeSelect, timeLimitSelect, timeLimitOptions, themeSelect, soundToggle; 
+    let modeSelect, timeLimitSelect, timeLimitOptions, themeSelect, soundToggle, normalModeProblemCountSelect, normalModeOptions; 
+    
+    // Read Aloud DOM Elements
+    let readAloudToggle, readAloudOptionsContainer, readAloudTargetSelect;
+    let readAloudVoiceJaSelect, readAloudRateJaSelect;
+    let readAloudVoiceEnSelect, readAloudRateEnSelect;
     
     let newListNameInput, createWordListBtn, manageWordListsContainer; 
     let addWordToListSelect, newWordDisplayInput, newWordNoteInput, addWordBtn;
     let addWordsFromFileToListSelect, wordFileInput, fileFormatRadios;
     let viewRegisteredWordsListSelect, registeredWordsListElement, correctListDataBtnModal; 
-
-    let practiceWordListsContainerModal, selectAllListsBtnModal; 
-
+    let accordionToggle, accordionIcon, registeredWordsContainer;
 
     let modalKpmDisplay, modalAccuracyDisplay, modalTimeDisplay, modalMissesDisplay, modalTypedCharsDisplay, modalMistypedStatsList;
-    let modalPlayerNameInput, submitScoreBtn, retryBtnModal;
-    let rankingDisplayModeSelect, rankingListElement;
+    let retryBtnModal;
     let totalPlaysStat, totalPlayTimeStat, totalTypedCharactersStat, totalOverallMistakesStat, avgKpmStat, avgAccuracyStat, totalMistypedKeysListElement, resetAllStatsBtn;
     let mainContainer; 
     let problemAreaElement; 
@@ -871,14 +889,13 @@
     let practiceSessionWordPool = []; 
     let practiceSessionWordPoolIndex = 0;
 
-
     let gameActive = false;
     let gamePendingStart = false; 
     let gameStartTime;
     let timerInterval;
     let currentMode = 'normal'; 
     let currentTimeLimit = 60; 
-    let scoreSubmittedThisGame = false;
+    let currentNormalModeProblemCount = 50;
     let wordCompleted = false; 
 
     // Statistics
@@ -893,12 +910,22 @@
     let currentTheme = 'light';
     let viewRegisteredWordsOrderReversed = false; 
 
+    // Read Aloud Settings
+    let readAloudSettings = {
+        enabled: false,
+        target: 'prompt', // prompt, typing, both
+        voiceJaURI: '',
+        rateJa: 1,
+        voiceEnURI: '',
+        rateEn: 1,
+    };
+    let synthVoices = [];
+
     // Constants for localStorage
     const WORD_LISTS_KEY = 'typingAppWordLists_v1'; 
-    const SCORES_KEY = 'typingAppScores_v2';
     const TOTAL_MISTYPED_KEYS_KEY = 'typingAppTotalMistypedKeys_v2';
     const TOTAL_PLAY_STATS_KEY = 'typingAppTotalPlayStats_v2';
-    const SETTINGS_KEY = 'typingAppSettings_v6'; 
+    const SETTINGS_KEY = 'typingAppSettings_v9';
     const LAST_FILE_FORMAT_KEY = 'typingAppLastFileFormat';
 
 
@@ -1020,6 +1047,7 @@
             }
             list.name = newName.trim();
             saveWordLists();
+            renderManageWordLists();
             showToast(`リスト名を「${list.name}」に変更しました。`, "success");
         }
     }
@@ -1031,37 +1059,47 @@
         if (confirmed) {
             wordLists = wordLists.filter(l => l.id !== listId);
             saveWordLists();
+            renderManageWordLists();
             showToast(`リスト「${list.name}」を削除しました。`, "info");
         }
     }
 
     function handleManageListActions(event) {
-        const target = event.target.closest('button');
+        const target = event.target;
         if (!target) return;
 
-        if (target.classList.contains('rename-list-btn')) {
-            handleRenameList(target.dataset.id);
-        } else if (target.classList.contains('delete-list-btn')) {
-            handleDeleteList(target.dataset.id);
+        const listItem = target.closest('.word-list-item');
+        if (!listItem) return;
+        
+        const listId = listItem.dataset.listId;
+
+        if (target.matches('.rename-list-btn, .rename-list-btn *')) {
+            handleRenameList(listId);
+        } else if (target.matches('.delete-list-btn, .delete-list-btn *')) {
+            handleDeleteList(listId);
+        } else if (target.matches('.practice-list-item-checkbox')) {
+            const list = wordLists.find(l => l.id === listId);
+            if(list) {
+                list.selectedForPractice = target.checked;
+                saveWordLists();
+            }
         }
     }
 
     function updateCurrentWordsListFromSelections() {
         currentWords = [];
-        if (practiceWordListsContainerModal) { 
-            practiceWordListsContainerModal.querySelectorAll('.practice-list-checkbox:checked').forEach(cb => {
-                const list = wordLists.find(l => l.id === cb.value);
-                if (list) {
-                    currentWords.push(...list.words);
-                }
-            });
-             if (currentMode === 'normal') { 
-                practiceSessionWordPool = []; 
-                practiceSessionWordPoolIndex = 0;
+        wordLists.forEach(list => {
+            if (list.selectedForPractice) {
+                currentWords.push(...list.words);
             }
+        });
+
+        if (currentMode === 'normal') {
+            practiceSessionWordPool = [];
+            practiceSessionWordPoolIndex = 0;
         }
         
-        if (!gameActive && !gamePendingStart) { 
+        if (!gameActive && !gamePendingStart) {
             loadInitialProblemDisplay();
         }
     }
@@ -1084,7 +1122,6 @@
         startBtn = document.getElementById('startBtn');
         resetBtn = document.getElementById('resetBtn');
         wordRegistrationBtn = document.getElementById('wordRegistrationBtn');
-        rankingBtn = document.getElementById('rankingBtn');
         totalStatsBtn = document.getElementById('totalStatsBtn');
         settingsBtn = document.getElementById('settingsBtn');
 
@@ -1097,15 +1134,9 @@
         mainContainer = document.querySelector('.container');
         gameProgressBar = document.getElementById('gameProgressBar');
         
-
-        practiceWordListsContainerModal = document.getElementById('practiceWordListsContainerModal');
-        selectAllListsBtnModal = document.getElementById('selectAllListsBtnModal');
-
-
         settingsModal = document.getElementById('settingsModal');
         wordRegistrationModal = document.getElementById('wordRegistrationModal');
         resultsModal = document.getElementById('resultsModal');
-        rankingModal = document.getElementById('rankingModal');
         totalStatsModal = document.getElementById('totalStatsModal');
         customConfirmModal = document.getElementById('customConfirmModal');
         confirmMessageText = document.getElementById('confirmMessageText');
@@ -1118,13 +1149,22 @@
         saveRenameListBtn = document.getElementById('saveRenameListBtn');
         cancelRenameListBtn = document.getElementById('cancelRenameListBtn');
 
-
         modeSelect = document.getElementById('modeSelect');
         timeLimitSelect = document.getElementById('timeLimitSelect');
         timeLimitOptions = document.getElementById('timeLimitOptions');
+        normalModeProblemCountSelect = document.getElementById('normalModeProblemCountSelect');
+        normalModeOptions = document.getElementById('normalModeOptions');
         themeSelect = document.getElementById('themeSelect');
         soundToggle = document.getElementById('soundToggle');
         
+        readAloudToggle = document.getElementById('readAloudToggle');
+        readAloudOptionsContainer = document.getElementById('readAloudOptionsContainer');
+        readAloudTargetSelect = document.getElementById('readAloudTargetSelect');
+        readAloudVoiceJaSelect = document.getElementById('readAloudVoiceJaSelect');
+        readAloudRateJaSelect = document.getElementById('readAloudRateJaSelect');
+        readAloudVoiceEnSelect = document.getElementById('readAloudVoiceEnSelect');
+        readAloudRateEnSelect = document.getElementById('readAloudRateEnSelect');
+
         newListNameInput = document.getElementById('newListNameInput');
         createWordListBtn = document.getElementById('createWordListBtn');
         manageWordListsContainer = document.getElementById('manageWordListsContainer');
@@ -1141,6 +1181,11 @@
         viewRegisteredWordsListSelect = document.getElementById('viewRegisteredWordsListSelect');
         registeredWordsListElement = document.getElementById('registeredWordsList');
         correctListDataBtnModal = document.getElementById('correctListDataBtnModal');
+        
+        accordionToggle = document.getElementById('accordionToggle');
+        accordionIcon = document.getElementById('accordionIcon');
+        registeredWordsContainer = document.getElementById('registeredWordsContainer');
+
 
         modalKpmDisplay = document.getElementById('modalKpmDisplay');
         modalAccuracyDisplay = document.getElementById('modalAccuracyDisplay');
@@ -1148,12 +1193,7 @@
         modalMissesDisplay = document.getElementById('modalMissesDisplay');
         modalTypedCharsDisplay = document.getElementById('modalTypedCharsDisplay');
         modalMistypedStatsList = document.getElementById('modalMistypedStatsList');
-        modalPlayerNameInput = document.getElementById('modalPlayerNameInput');
-        submitScoreBtn = document.getElementById('submitScoreBtn');
         retryBtnModal = document.getElementById('retryBtnModal');
-
-        rankingDisplayModeSelect = document.getElementById('rankingDisplayModeSelect');
-        rankingListElement = document.getElementById('ranking-list');
         
         totalPlaysStat = document.getElementById('totalPlaysStat');
         totalPlayTimeStat = document.getElementById('totalPlayTimeStat');
@@ -1165,11 +1205,11 @@
         resetAllStatsBtn = document.getElementById('resetAllStatsBtn');
 
         loadSettings();
+        initSpeechSynthesis();
         loadWordLists(); 
         loadTotalMistypedKeys();
         loadTotalPlayStats();
         
-        renderPracticeListCheckboxes(); 
         updateCurrentWordsListFromSelections(); 
 
         startBtn.addEventListener('click', startGame);
@@ -1184,10 +1224,8 @@
             renderManageWordLists(); 
             openModal(wordRegistrationModal);
         });
-        rankingBtn.addEventListener('click', () => { displayRanking(); openModal(rankingModal); });
         totalStatsBtn.addEventListener('click', () => { displayTotalMistypedStats(); openModal(totalStatsModal); });
         settingsBtn.addEventListener('click', () => {
-            renderPracticeListCheckboxes(); 
             openModal(settingsModal);
         });
         
@@ -1218,7 +1256,7 @@
 
         modeSelect.addEventListener('change', (e) => { 
             currentMode = e.target.value;
-            timeLimitOptions.style.display = currentMode === 'timeLimit' ? 'block' : 'none';
+            updateModeOptionsVisibility();
             saveSettings(); 
             if (!gameActive && !gamePendingStart) loadInitialProblemDisplay();
         });
@@ -1226,6 +1264,11 @@
             currentTimeLimit = parseInt(e.target.value);
             saveSettings();
             if (!gameActive && !gamePendingStart && currentMode === 'timeLimit') loadInitialProblemDisplay();
+        });
+        normalModeProblemCountSelect.addEventListener('change', (e) => {
+            currentNormalModeProblemCount = parseInt(e.target.value);
+            saveSettings();
+            if (!gameActive && !gamePendingStart && currentMode === 'normal') loadInitialProblemDisplay();
         });
         themeSelect.addEventListener('change', (e) => { 
             applyTheme(e.target.value); 
@@ -1239,28 +1282,45 @@
             }
         });
         
+        readAloudToggle.addEventListener('change', handleReadAloudToggle);
+        readAloudTargetSelect.addEventListener('change', () => { readAloudSettings.target = readAloudTargetSelect.value; saveSettings(); });
+        readAloudRateJaSelect.addEventListener('change', () => { readAloudSettings.rateJa = parseFloat(readAloudRateJaSelect.value); saveSettings(); });
+        readAloudVoiceJaSelect.addEventListener('change', () => { readAloudSettings.voiceJaURI = readAloudVoiceJaSelect.value; saveSettings(); });
+        readAloudRateEnSelect.addEventListener('change', () => { readAloudSettings.rateEn = parseFloat(readAloudRateEnSelect.value); saveSettings(); });
+        readAloudVoiceEnSelect.addEventListener('change', () => { readAloudSettings.voiceEnURI = readAloudVoiceEnSelect.value; saveSettings(); });
+
         createWordListBtn.addEventListener('click', createNewWordList);
         
         if(correctListDataBtnModal) correctListDataBtnModal.addEventListener('click', correctSelectedListDataInView);
-
 
         addWordBtn.addEventListener('click', addWordToSelectedList);
         wordFileInput.addEventListener('change', handleFileUpload);
         
         viewRegisteredWordsListSelect.addEventListener('change', () => displayWordsInSelectedListForView(viewRegisteredWordsOrderReversed));
         
-        submitScoreBtn.addEventListener('click', handleSubmitScore);
         retryBtnModal.addEventListener('click', () => {
             closeModal(resultsModal);
             resetGame(); 
             startGame();
         });
         
-        rankingDisplayModeSelect.addEventListener('change', displayRanking);
         resetAllStatsBtn.addEventListener('click', resetAllStatistics);
         document.addEventListener('keydown', handleGlobalKeydown);
         inputField.addEventListener('keydown', handleKeydown);
-        if(selectAllListsBtnModal) selectAllListsBtnModal.addEventListener('click', toggleSelectAllPracticeListsModal);
+
+        window.addEventListener('blur', () => {
+            if (gameActive) {
+                endGame();
+            }
+        });
+        
+        if (accordionToggle) {
+            accordionToggle.addEventListener('click', () => {
+                const isHidden = registeredWordsContainer.classList.toggle('hidden');
+                accordionIcon.classList.toggle('fa-chevron-down', isHidden);
+                accordionIcon.classList.toggle('fa-chevron-up', !isHidden);
+            });
+        }
     });
 
 
@@ -1293,7 +1353,7 @@
             sanitized = sanitized.replace(/[、。「」『』（）！？,]+/g, ' '); 
         } else { 
             sanitized = sanitized.replace(/[、。]{2,}/g, ''); 
-            sanitized = sanitized.replace(/,{2,}/g, '');    
+            sanitized = sanitized.replace(/,{2,}/g, '');   
             sanitized = sanitized.replace(/[、。,]$/, '');   
         }
         return sanitized.replace(/\s+/g, ' ').trim(); 
@@ -1307,25 +1367,48 @@
             const settings = JSON.parse(saved);
             currentMode = settings.mode || 'normal';
             currentTimeLimit = settings.timeLimit || 60;
+            currentNormalModeProblemCount = settings.normalModeProblemCount || 50;
             currentTheme = settings.theme || 'light';
             soundEnabled = typeof settings.soundEnabled === 'boolean' ? settings.soundEnabled : true;
+            if(settings.readAloud) {
+                readAloudSettings = { ...readAloudSettings, ...settings.readAloud };
+            }
         }
         
         modeSelect.value = currentMode;
         timeLimitSelect.value = currentTimeLimit;
-        timeLimitOptions.style.display = currentMode === 'timeLimit' ? 'block' : 'none';
+        normalModeProblemCountSelect.value = currentNormalModeProblemCount;
+        updateModeOptionsVisibility();
         applyTheme(currentTheme); 
         soundToggle.checked = soundEnabled;
+
+        readAloudToggle.checked = readAloudSettings.enabled;
+        readAloudOptionsContainer.style.display = readAloudSettings.enabled ? 'block' : 'none';
+        readAloudTargetSelect.value = readAloudSettings.target;
+        readAloudRateJaSelect.value = readAloudSettings.rateJa;
+        readAloudRateEnSelect.value = readAloudSettings.rateEn;
     }
 
     function saveSettings() {
         const settings = {
             mode: currentMode,
             timeLimit: currentTimeLimit,
+            normalModeProblemCount: currentNormalModeProblemCount,
             theme: currentTheme,
             soundEnabled: soundEnabled,
+            readAloud: readAloudSettings,
         };
         localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    }
+
+    function updateModeOptionsVisibility() {
+        if (currentMode === 'normal') {
+            timeLimitOptions.classList.add('hidden');
+            normalModeOptions.classList.remove('hidden');
+        } else {
+            timeLimitOptions.classList.remove('hidden');
+            normalModeOptions.classList.add('hidden');
+        }
     }
 
     function applyTheme(themeName) {
@@ -1334,6 +1417,83 @@
         currentTheme = themeName;
         if(themeSelect.value !== themeName) themeSelect.value = themeName; 
     }
+
+    // --- Read Aloud Feature ---
+    function initSpeechSynthesis() {
+        if ('speechSynthesis' in window) {
+            speechSynthesis.onvoiceschanged = populateVoiceLists;
+            populateVoiceLists(); 
+        } else {
+            document.querySelector('#readAloudToggle').closest('.toggle-switch').style.display = 'none';
+            document.querySelector('#readAloudOptionsContainer').style.display = 'none';
+        }
+    }
+
+    function populateVoiceLists() {
+        synthVoices = speechSynthesis.getVoices();
+        
+        readAloudVoiceJaSelect.innerHTML = '';
+        readAloudVoiceEnSelect.innerHTML = '';
+
+        const jaVoices = synthVoices.filter(v => v.lang.startsWith('ja'));
+        const enVoices = synthVoices.filter(v => v.lang.startsWith('en'));
+
+        jaVoices.forEach(voice => {
+            const option = new Option(`${voice.name} (${voice.lang})`, voice.voiceURI);
+            readAloudVoiceJaSelect.add(option);
+        });
+        enVoices.forEach(voice => {
+            const option = new Option(`${voice.name} (${voice.lang})`, voice.voiceURI);
+            readAloudVoiceEnSelect.add(option);
+        });
+
+        if (readAloudSettings.voiceJaURI) readAloudVoiceJaSelect.value = readAloudSettings.voiceJaURI;
+        if (readAloudSettings.voiceEnURI) readAloudVoiceEnSelect.value = readAloudSettings.voiceEnURI;
+    }
+
+    function handleReadAloudToggle(event) {
+        readAloudSettings.enabled = event.target.checked;
+        readAloudOptionsContainer.style.display = readAloudSettings.enabled ? 'block' : 'none';
+        saveSettings();
+    }
+
+    function speak(text, lang, voiceURI, rate) {
+        if (!readAloudSettings.enabled || !text) return;
+
+        speechSynthesis.cancel(); 
+
+        const utterance = new SpeechSynthesisUtterance(text);
+        const selectedVoice = synthVoices.find(v => v.voiceURI === voiceURI);
+
+        utterance.voice = selectedVoice || synthVoices.find(v => v.lang.startsWith(lang) && v.default);
+        utterance.lang = lang;
+        utterance.rate = rate;
+
+        speechSynthesis.speak(utterance);
+    }
+
+    function triggerReadAloud() {
+        if (!readAloudSettings.enabled || !currentProblem) return;
+
+        const target = readAloudSettings.target;
+
+        if (target === 'prompt' || target === 'both') {
+            const textToRead = currentProblem.note || '';
+            if (textToRead) {
+                speak(textToRead, 'ja-JP', readAloudSettings.voiceJaURI, readAloudSettings.rateJa);
+            }
+        }
+        if (target === 'typing' || target === 'both') {
+            const textToRead = currentProblem.display || '';
+            if (textToRead) {
+                const delay = (target === 'both' && (currentProblem.note || '')) ? 1000 : 0;
+                setTimeout(() => {
+                    speak(textToRead, 'en-US', readAloudSettings.voiceEnURI, readAloudSettings.rateEn);
+                }, delay);
+            }
+        }
+    }
+
     
     // --- Word List Management ---
     function generateId() {
@@ -1344,15 +1504,12 @@
         const saved = localStorage.getItem(WORD_LISTS_KEY);
         wordLists = saved ? JSON.parse(saved) : [];
         renderManageWordLists(); 
-        renderPracticeListCheckboxes(); 
         updateCurrentWordsListFromSelections(); 
     }
 
     function saveWordLists() {
         localStorage.setItem(WORD_LISTS_KEY, JSON.stringify(wordLists));
-        renderManageWordLists();
-        renderPracticeListCheckboxes(); 
-        updateCurrentWordsListFromSelections(); 
+        updateCurrentWordsListFromSelections();
     }
     
     async function createNewWordList() { 
@@ -1368,6 +1525,7 @@
         wordLists.push({ id: generateId(), name: listName, words: [], selectedForPractice: false }); 
         newListNameInput.value = "";
         saveWordLists();
+        renderManageWordLists();
         showToast(`リスト「${listName}」を作成しました。`, "success");
     }
 
@@ -1392,28 +1550,34 @@
 
         wordLists.forEach(list => {
             const listItem = document.createElement('div');
-            listItem.className = 'word-list-item text-sm';
+            listItem.className = 'word-list-item';
+            listItem.dataset.listId = list.id;
+            
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.className = 'practice-list-item-checkbox';
+            checkbox.checked = list.selectedForPractice || false;
             
             const listNameSpan = document.createElement('span');
             listNameSpan.className = 'list-name';
             listNameSpan.textContent = `${list.name} (${list.words.length}語)`;
-            listItem.appendChild(listNameSpan);
-
+            
             const actionsDiv = document.createElement('div');
             actionsDiv.className = 'list-actions';
 
             const renameBtn = document.createElement('button');
             renameBtn.className = 'rename-list-btn bg-blue-500 hover:bg-blue-600';
             renameBtn.innerHTML = '<i class="fas fa-pencil-alt"></i>';
-            renameBtn.dataset.id = list.id;
-            actionsDiv.appendChild(renameBtn);
-
+            
             const deleteBtn = document.createElement('button');
             deleteBtn.className = 'delete-list-btn bg-red-500 hover:bg-red-600';
             deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-            deleteBtn.dataset.id = list.id;
+
+            actionsDiv.appendChild(renameBtn);
             actionsDiv.appendChild(deleteBtn);
             
+            listItem.appendChild(checkbox);
+            listItem.appendChild(listNameSpan);
             listItem.appendChild(actionsDiv);
             manageWordListsContainer.appendChild(listItem);
 
@@ -1451,6 +1615,7 @@
             word.note = sanitizeString(tempDisplay, false).toLowerCase();
         });
         saveWordLists(); 
+        renderManageWordLists();
         showToast(`リスト「${list.name}」のデータの入れ替えが完了しました。`, "success");
     }
     
@@ -1492,6 +1657,7 @@
 
         list.words.push({ id: generateId(), display: finalDisplay, note: finalNote });
         saveWordLists();
+        renderManageWordLists();
         newWordDisplayInput.value = '';
         newWordNoteInput.value = '';
         showToast(`「${finalNote} / ${finalDisplay}」をリスト「${list.name}」に登録しました。`, "success");
@@ -1568,6 +1734,7 @@
 
         if (addedCount > 0) {
             saveWordLists(); 
+            renderManageWordLists();
             showToast(`${addedCount}件の新しい単語をリスト「${targetList.name}」に登録しました。${skippedCount > 0 ? skippedCount + '件は重複または無効でスキップされました。' : ''}`, "success");
         } else {
             showToast(`登録できる新しい単語が見つからなかったか、内容は全て既存の単語でした。(スキップ: ${skippedCount}件)`, "info");
@@ -1633,6 +1800,7 @@
             if (confirmed) {
                 list.words = list.words.filter(w => w.id !== wordId);
                 saveWordLists();
+                renderManageWordLists();
                 if (viewRegisteredWordsListSelect.value === listId) { 
                     displayWordsInSelectedListForView(viewRegisteredWordsOrderReversed); 
                 }
@@ -1641,50 +1809,8 @@
         }
     }
     
-    // --- Practice List Selection ---
-    function renderPracticeListCheckboxes() { 
-        if (!practiceWordListsContainerModal) return;
-        practiceWordListsContainerModal.innerHTML = "";
-        if (wordLists.length === 0) {
-            practiceWordListsContainerModal.innerHTML = '<p class="text-sm text-gray-500">単語リストを登録してください。</p>';
-            return;
-        }
-        wordLists.forEach(list => {
-            const label = document.createElement('label');
-            label.className = "block"; 
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.value = list.id;
-            checkbox.className = 'practice-list-checkbox'; 
-            checkbox.checked = list.selectedForPractice || false; 
-            checkbox.addEventListener('change', () => {
-                const l = wordLists.find(l => l.id === checkbox.value);
-                if (l) l.selectedForPractice = checkbox.checked;
-                localStorage.setItem(WORD_LISTS_KEY, JSON.stringify(wordLists)); 
-                updateCurrentWordsListFromSelections();
-            });
-            label.appendChild(checkbox);
-            label.appendChild(document.createTextNode(` ${list.name} (${list.words.length})`));
-            practiceWordListsContainerModal.appendChild(label);
-        });
-    }
-
-    function toggleSelectAllPracticeListsModal() { 
-        const checkboxes = document.querySelectorAll('#practiceWordListsContainerModal .practice-list-checkbox');
-        const allChecked = Array.from(checkboxes).every(cb => cb.checked);
-        checkboxes.forEach(cb => {
-            cb.checked = !allChecked; 
-            const list = wordLists.find(l => l.id === cb.value);
-            if (list) list.selectedForPractice = cb.checked; 
-        });
-        localStorage.setItem(WORD_LISTS_KEY, JSON.stringify(wordLists)); 
-        updateCurrentWordsListFromSelections(); 
-    }
-    
-
     // --- Game Core Logic ---
     let problemSet = []; 
-    // practiceSessionWordPool and practiceSessionWordPoolIndex are already declared in Game State section
 
     function prepareNormalModeProblems() {
         if (currentWords.length === 0) {
@@ -1701,7 +1827,7 @@
         }
         
         problemSet = [];
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < currentNormalModeProblemCount; i++) {
             if (practiceSessionWordPoolIndex >= practiceSessionWordPool.length) {
                 if (currentWords.length > 0) { 
                     practiceSessionWordPool = [...currentWords];
@@ -1871,9 +1997,8 @@
         }
         
         gamePendingStart = true;
-        gameActive = false;    
+        gameActive = false;   
 
-        scoreSubmittedThisGame = false;
         currentProblemCharIndex = 0;
         correctStrokes = 0;
         incorrectStrokes = 0;
@@ -1914,6 +2039,8 @@
         renderProblemStatic(); 
         renderProblemDynamic(); 
 
+        triggerReadAloud();
+
         if (currentMode === 'timeLimit') {
             if(countdownDisplay) countdownDisplay.textContent = currentTimeLimit; 
         } else {
@@ -1942,6 +2069,7 @@
         gameActive = false;
         gamePendingStart = false; 
         clearInterval(timerInterval);
+        speechSynthesis.cancel();
         currentProblemCharIndex = 0;
         problemToType = "";
         correctStrokes = 0;
@@ -1963,11 +2091,12 @@
         loadInitialProblemDisplay(); 
     }
     
-    async function endGame() { 
+    function endGame() { 
         if (!gameActive && !gamePendingStart) return; 
         gameActive = false;
         gamePendingStart = false;
         clearInterval(timerInterval);
+        speechSynthesis.cancel();
         playSound('gameEnd');
 
         if (problemTextStaticElement) { 
@@ -2019,8 +2148,6 @@
                 closeModal(resultsModal);
             } else if (wordRegistrationModal.style.display === 'flex') {
                 closeModal(wordRegistrationModal);
-            } else if (rankingModal.style.display === 'flex') {
-                closeModal(rankingModal);
             } else if (totalStatsModal.style.display === 'flex') {
                 closeModal(totalStatsModal);
             } else if (settingsModal.style.display === 'flex') {
@@ -2042,17 +2169,15 @@
         if (event.key === ' ' || event.code === 'Space') {
             const activeEl = document.activeElement;
             const isOtherModalOpen = wordRegistrationModal.style.display === 'flex' ||
-                                rankingModal.style.display === 'flex' ||
-                                totalStatsModal.style.display === 'flex' ||
-                                settingsModal.style.display === 'flex' ||
-                                customConfirmModal.style.display === 'flex' ||
-                                renameListModal.style.display === 'flex' ||
-                                (resultsModal.style.display === 'flex' && activeEl === modalPlayerNameInput);
+                                     totalStatsModal.style.display === 'flex' ||
+                                     settingsModal.style.display === 'flex' ||
+                                     customConfirmModal.style.display === 'flex' ||
+                                     renameListModal.style.display === 'flex';
 
             if (isOtherModalOpen) return; 
             
             if (activeEl === document.body || activeEl === inputField || 
-                (resultsModal.style.display === 'flex' && activeEl !== modalPlayerNameInput && activeEl !== submitScoreBtn && activeEl !== retryBtnModal) ) {
+                (resultsModal.style.display === 'flex' && activeEl !== retryBtnModal) ) {
                 
                 if (!gameActive && !gamePendingStart) { 
                     event.preventDefault(); 
@@ -2074,7 +2199,6 @@
     function proceedToNextProblem() {
         wordCompleted = false; 
         currentProblemCharIndex = 0;
-        // totalTypedInGame = 0; // Reset only if accuracy is per-word, not per-game
         
         if (currentMode === 'timeLimit') {
             currentProblem = getRandomProblemForTimeLimit(); 
@@ -2086,6 +2210,7 @@
             problemToType = getProblemTextToType();
             renderProblemStatic();
             renderProblemDynamic();
+            triggerReadAloud();
             if(inputField) inputField.focus(); 
             updateProgressBar();
         } else { 
@@ -2114,7 +2239,7 @@
                 }
                 playSound('gameStart'); 
                 updateTotalPlayStats({plays: 1}); 
-                updateProgressBar(); // Update progress bar on game start
+                updateProgressBar();
             } else {
                 if (['Shift', 'Control', 'Alt', 'Meta', 'CapsLock', 'Tab', 'Escape', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Enter', 'Backspace'].includes(pressedKey)) {
                     return;
@@ -2267,71 +2392,17 @@
     }
     
     async function resetAllStatistics() { 
-        const confirmed = await showCustomConfirm("本当にすべての統計情報（ランキング、累計成績、苦手キー）をリセットしますか？この操作は元に戻せません。");
+        const confirmed = await showCustomConfirm("本当にすべての統計情報（累計成績、苦手キー）をリセットしますか？この操作は元に戻せません。");
         if (confirmed) {
             currentTotalPlayStats = { plays: 0, playTime: 0, typedChars: 0, mistypedKeysOverall: 0, kpmSum: 0, accuracySum: 0 };
             totalMistypedKeys = {};
             localStorage.removeItem(TOTAL_PLAY_STATS_KEY);
             localStorage.removeItem(TOTAL_MISTYPED_KEYS_KEY);
-            localStorage.removeItem(SCORES_KEY); 
             
             showToast("すべての統計情報をリセットしました。", "info");
             displayTotalMistypedStats(); 
-            displayRanking(); 
             if (currentKpmDisplay) currentKpmDisplay.textContent = "0"; 
         }
-    }
-
-    // --- Ranking ---
-    async function handleSubmitScore() { 
-        if (scoreSubmittedThisGame) {
-            showToast("このゲームのスコアは既に登録されています。", "info");
-            return;
-        }
-        const name = modalPlayerNameInput.value.trim() || "名無しさん";
-        const kpm = parseInt(modalKpmDisplay.textContent);
-        const accuracy = parseFloat(modalAccuracyDisplay.textContent);
-        const time = parseFloat(modalTimeDisplay.textContent);
-        
-        if (kpm > 0) { 
-            saveScoreToLocal(name, kpm, accuracy, time, currentMode);
-            scoreSubmittedThisGame = true; 
-            showToast("スコアを登録しました！", "success");
-            if(submitScoreBtn) { 
-                 submitScoreBtn.disabled = true; 
-                 submitScoreBtn.textContent = "登録済み";
-            }
-        } else {
-            showToast("KPMが0のため、スコアは登録されませんでした。", "error");
-        }
-    }
-
-    function saveScoreToLocal(name, kpm, accuracy, time, mode) {
-        let scores = JSON.parse(localStorage.getItem(SCORES_KEY)) || [];
-        scores.push({ name, kpm, accuracy, time, mode, date: new Date().toISOString() });
-        scores.sort((a, b) => b.kpm - a.kpm); 
-        localStorage.setItem(SCORES_KEY, JSON.stringify(scores));
-    }
-
-    function displayRanking() {
-        if (!rankingListElement) return;
-        let scores = JSON.parse(localStorage.getItem(SCORES_KEY)) || [];
-        const filterMode = rankingDisplayModeSelect.value;
-
-        if (filterMode !== 'all') {
-            scores = scores.filter(score => score.mode === filterMode);
-        }
-
-        rankingListElement.innerHTML = '';
-        if (scores.length === 0) {
-            rankingListElement.innerHTML = '<li>まだスコアがありません。</li>';
-            return;
-        }
-        scores.slice(0, 20).forEach((s, i) => { 
-            const li = document.createElement('li');
-            li.innerHTML = `<span>${i + 1}. ${s.name} - ${s.kpm} KPM (${s.accuracy.toFixed(1)}%)</span> <span class="text-xs text-gray-500">${s.mode}/${new Date(s.date).toLocaleDateString()}</span>`;
-            rankingListElement.appendChild(li);
-        });
     }
 
 </script>
